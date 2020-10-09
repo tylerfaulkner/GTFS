@@ -1,4 +1,4 @@
-package sample;
+package GTFS;
 
 public class Controller {
 }
