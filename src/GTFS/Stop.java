@@ -15,7 +15,7 @@ package GTFS;
  */
 public class Stop {
 
-	private string stopId;
+	private String stopId;
 	private double stopLat;
 	private double stopLong;
 

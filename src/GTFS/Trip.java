@@ -12,13 +12,6 @@ public class Trip {
 	private String serviceID;
 	private String tripID;
 
-	public Trip(){
-
-	}
-
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * 
@@ -27,7 +20,9 @@ public class Trip {
 	 * @param tripID
 	 */
 	public Trip(String routeID, String serviceID, String tripID){
-
+		this.routeID = routeID;
+		this.serviceID = serviceID;
+		this.tripID = tripID;
 	}
 
 	public String getRouteID(){
