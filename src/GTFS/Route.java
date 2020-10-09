@@ -23,11 +23,11 @@ public class Route {
 	 * @param routeID
 	 */
 	public void Route(String routeID){
-
+		this.routeID = routeID;
 	}
 
 	public String getRouteID(){
-		return "";
+		return routeID;
 	}
 
 }
