@@ -1,6 +1,8 @@
 package GTFS;
 
 
+import java.util.List;
+
 /**
  * @author budrecka
  * @version 1.0
@@ -8,10 +10,10 @@ package GTFS;
  */
 public class DataGTFS {
 
-	private List<route> routes;
-	private List<stop> stops;
-	private List<stopTime> stopTimes;
-	private List<stop> trips;
+	private List<Route> routes;
+	private List<Stop> stops;
+	private List<StopTime> stopTimes;
+	private List<Stop> trips;
 	public StopTime m_StopTime;
 	public Stop m_Stop;
 	public Route m_Route;
@@ -25,27 +27,19 @@ public class DataGTFS {
 
 	}
 
-	public List<route> getAllRoutes(){
+	public List<Route> getAllRoutes(){
 		return null;
 	}
 
-	public List<stop> getAllStops(){
+	public List<Stop> getAllStops(){
 		return null;
 	}
 
-	public List<stop_time> getAllStopTimes(){
+	public List<StopTime> getAllStopTimes(){
 		return null;
 	}
 
-	public List<trip> getAllTrips(){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param stop_id
-	 */
-	public list<route> getRoutesByStop(String stop_id){
+	public List<Trip> getAllTrips(){
 		return null;
 	}
 
@@ -53,7 +47,15 @@ public class DataGTFS {
 	 * 
 	 * @param stop_id
 	 */
-	public List<route> getStopsOnRoute(String stop_id){
+	public List<Route> getRoutesByStop(String stop_id){
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param stop_id
+	 */
+	public List<Route> getStopsOnRoute(String stop_id){
 		return null;
 	}
 
@@ -61,7 +63,7 @@ public class DataGTFS {
 	 * 
 	 * @param tripID
 	 */
-	public List<stop> getStopsOnTrip(String tripID){
+	public List<Stop> getStopsOnTrip(String tripID){
 		return null;
 	}
 
@@ -69,7 +71,7 @@ public class DataGTFS {
 	 * 
 	 * @param trip_id
 	 */
-	public List<trip> getTripsOfRoute(String trip_id){
+	public List<Trip> getTripsOfRoute(String trip_id){
 		return null;
 	}
 
@@ -77,7 +79,7 @@ public class DataGTFS {
 	 * 
 	 * @param stop_id
 	 */
-	public List<trip> getTripsOnStop(String stop_id){
+	public List<Trip> getTripsOnStop(String stop_id){
 		return null;
 	}
 

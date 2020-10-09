@@ -12,13 +12,6 @@ public class StopTime {
 	private int stopSequence;
 	private String tripId;
 
-	public StopTime(){
-
-	}
-
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * 
@@ -27,7 +20,9 @@ public class StopTime {
 	 * @param tripId
 	 */
 	public StopTime(String stopId, int stopSequence, String tripId){
-
+		this.stopId = stopId;
+		this.stopSequence = stopSequence;
+		this.tripId = tripId;
 	}
 
 	public String getStopID(){
