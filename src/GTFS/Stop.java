@@ -15,17 +15,9 @@ package GTFS;
  */
 public class Stop {
 
-	private string stopId;
+	private String stopId;
 	private double stopLat;
 	private double stopLong;
-
-	public Stop(){
-
-	}
-
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * 
@@ -34,19 +26,21 @@ public class Stop {
 	 * @param stopLong
 	 */
 	public Stop(String stopId, double stopLat, double stopLong){
-
+		this.stopId = stopId;
+		this.stopLat = stopLat;
+		this.stopLong = stopLong;
 	}
 
 	public Double getLat(){
-		return 0;
+		return stopLat;
 	}
 
 	public Double getLong(){
-		return 0;
+		return stopLong;
 	}
 
 	public String getStopID(){
-		return "";
+		return stopId;
 	}
 
 }
