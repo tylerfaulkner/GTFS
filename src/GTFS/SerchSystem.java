@@ -1,6 +1,8 @@
 package GTFS;
 
 
+import java.util.List;
+
 /**
  * @author budrecka
  * @version 1.0
@@ -79,7 +81,7 @@ public class SerchSystem {
 	 * 
 	 * @param trips
 	 */
-	private void sortTrips(List<trip> trips){
+	private void sortTrips(List<Trip> trips){
 
 	}
 

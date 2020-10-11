@@ -1,6 +1,9 @@
 package GTFS;
 
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+
 /**
  * @author budrecka
  * @version 1.0
@@ -10,6 +13,12 @@ public class Controller {
 
 	private boolean vaildAccount;
 	public SerchSystem m_SerchSystem;
+
+	@FXML
+	Pane openPane = new Pane();
+
+	@FXML
+	Pane lastPane;
 
 	public Controller(){
 
@@ -29,9 +38,9 @@ public class Controller {
 
 	/**
 	 * 
-	 * @param files
+	 *
 	 */
-	public void importGTFS(Files[] files){
+	public void importGTFS(){
 
 	}
 
@@ -51,4 +60,41 @@ public class Controller {
 
 	}
 
+	@FXML
+	private void openRoutes(){
+
+
+	}
+
+	@FXML
+	private void openStops(){
+
+
+	}
+
+	@FXML
+	private void openStopTimes(){
+
+	}
+
+	@FXML
+	private  void openTrips(){
+
+	}
+
+	@FXML
+	private void openFinish(){
+
+
+	}
+
+	@FXML
+	private void openFile(){
+		openPane.setVisible(true);
+	}
+
+	private void getFile(){
+
+		
+	}
 }

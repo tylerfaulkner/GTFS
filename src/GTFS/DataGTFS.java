@@ -23,10 +23,6 @@ public class DataGTFS {
 
 	}
 
-	public void finalize() throws Throwable {
-
-	}
-
 	public List<Route> getAllRoutes(){
 		return null;
 	}

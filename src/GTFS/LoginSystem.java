@@ -1,6 +1,8 @@
 package GTFS;
 
 
+import java.util.Map;
+
 /**
  * @author faulknert
  * @version 1.0
@@ -8,7 +10,7 @@ package GTFS;
  */
 public class LoginSystem {
 
-	private Map<username : string, password : string> logins;
+	private Map<String, String> logins;
 	public Controller m_Controller;
 
 	public LoginSystem(){
