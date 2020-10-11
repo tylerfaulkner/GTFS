@@ -87,7 +87,7 @@ public class DataGTFS {
 		FileInputStream fileInputStream = new FileInputStream(routes);
 		DataInputStream dataInputStream = new DataInputStream(fileInputStream);
 
-		
+
 	}
 
 	public void setStops(File stops) throws FileNotFoundException {
