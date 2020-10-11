@@ -1,6 +1,10 @@
 package GTFS;
 
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -79,4 +83,26 @@ public class DataGTFS {
 		return null;
 	}
 
+	public void setRoutes(File routes) throws FileNotFoundException {
+		FileInputStream fileInputStream = new FileInputStream(routes);
+		DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+
+		
+	}
+
+	public void setStops(File stops) throws FileNotFoundException {
+		FileInputStream fileInputStream = new FileInputStream(stops);
+		DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+
+	}
+
+	public void setStopTime(File stopTime) throws FileNotFoundException {
+		FileInputStream fileInputStream = new FileInputStream(stopTime);
+		DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+	}
+
+	public void setTrips(File trips) throws FileNotFoundException {
+		FileInputStream fileInputStream = new FileInputStream(trips);
+		DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+	}
 }

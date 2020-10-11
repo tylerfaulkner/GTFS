@@ -1,6 +1,7 @@
 package GTFS;
 
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -85,4 +86,20 @@ public class SerchSystem {
 
 	}
 
+
+	public void setRoutes(File routes) {
+		m_DataGTFS.setRoutes(routes);
+	}
+
+	public void setStops(File stops) {
+		m_DataGTFS.setStops(stops);
+	}
+
+	public void setStopTime(File stopTime) {
+		m_DataGTFS.setStopTime(stopTime);
+	}
+
+	public void setTrips(File trips) {
+		m_DataGTFS.setTrips(trips);
+	}
 }

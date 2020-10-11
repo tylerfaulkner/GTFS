@@ -3,6 +3,10 @@ package GTFS;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * @author budrecka
@@ -13,6 +17,7 @@ public class Controller {
 
 	private boolean vaildAccount;
 	public SerchSystem m_SerchSystem;
+	private Stage stage;
 
 	@FXML
 	Pane openPane = new Pane();
@@ -62,24 +67,22 @@ public class Controller {
 
 	@FXML
 	private void openRoutes(){
-
-
+		m_SerchSystem.setRoutes(getFile());
 	}
 
 	@FXML
 	private void openStops(){
-
-
+		m_SerchSystem.setStops(getFile());
 	}
 
 	@FXML
 	private void openStopTimes(){
-
+		m_SerchSystem.setStopTime(getFile());
 	}
 
 	@FXML
 	private  void openTrips(){
-
+		m_SerchSystem.setTrips(getFile());
 	}
 
 	@FXML
@@ -93,8 +96,10 @@ public class Controller {
 		openPane.setVisible(true);
 	}
 
-	private void getFile(){
+	private File getFile(){
+		FileChooser output = new FileChooser();
+		output.getExtensionFilters().add(new FileChooser.ExtensionFilter(".txt"));
+		return output.showOpenDialog(stage);
 
-		
 	}
 }
