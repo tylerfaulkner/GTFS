@@ -2,6 +2,7 @@ package GTFS;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ import java.io.File;
 public class Controller {
 
 	private boolean vaildAccount;
-	public SerchSystem m_SerchSystem;
+	public SearchSystem m_SearchSystem;
 	private Stage stage;
 
 	@FXML
@@ -25,8 +26,17 @@ public class Controller {
 	@FXML
 	Pane lastPane;
 
-	public Controller(){
+	@FXML
+	Label stopsFileName;
+	@FXML
+	Label tripsFileName;
+	@FXML
+	Label timesFileName;
+	@FXML
+	Label routesFileName;
 
+	public Controller(){
+		m_SearchSystem = new SearchSystem();
 	}
 
 	public void finalize() throws Throwable {
@@ -57,6 +67,10 @@ public class Controller {
 
 	}
 
+	public void setStage(Stage stage){
+		this.stage = stage;
+	}
+
 	/**
 	 * 
 	 * @param filter
@@ -67,22 +81,34 @@ public class Controller {
 
 	@FXML
 	private void openRoutes(){
-		m_SerchSystem.setRoutes(getFile());
+		m_SearchSystem.setRoutesFile(getFile());
+		String path = m_SearchSystem.getRoutesFile().getPath();
+		String filename = path.substring(path.lastIndexOf('\\') + 1);
+		stopsFileName.setText(filename);
 	}
 
 	@FXML
 	private void openStops(){
-		m_SerchSystem.setStops(getFile());
+		m_SearchSystem.setStopFile(getFile());
+		String path = m_SearchSystem.getStopFile().getPath();
+		String filename = path.substring(path.lastIndexOf('\\') + 1);
+		stopsFileName.setText(filename);
 	}
 
 	@FXML
 	private void openStopTimes(){
-		m_SerchSystem.setStopTime(getFile());
+		m_SearchSystem.setTimesFile(getFile());
+		String path = m_SearchSystem.getTimesFile().getPath();
+		String filename = path.substring(path.lastIndexOf('\\') + 1);
+		stopsFileName.setText(filename);
 	}
 
 	@FXML
 	private  void openTrips(){
-		m_SerchSystem.setTrips(getFile());
+		m_SearchSystem.setRoutesFile(getFile());
+		String path = m_SearchSystem.getRoutesFile().getPath();
+		String filename = path.substring(path.lastIndexOf('\\') + 1);
+		stopsFileName.setText(filename);
 	}
 
 	@FXML
@@ -92,14 +118,19 @@ public class Controller {
 	}
 
 	@FXML
+	private void uploadFiles(){
+		m_SearchSystem.uploadFiles();
+	}
+
+	@FXML
 	private void openFile(){
 		openPane.setVisible(true);
 	}
 
 	private File getFile(){
 		FileChooser output = new FileChooser();
-		output.getExtensionFilters().add(new FileChooser.ExtensionFilter(".txt"));
-		return output.showOpenDialog(stage);
-
+		output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
+		File file = output.showOpenDialog(stage);
+		return file;
 	}
 }
