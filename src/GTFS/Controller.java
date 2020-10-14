@@ -25,6 +25,8 @@ public class Controller {
 
 	@FXML
 	Pane lastPane;
+	@FXML
+	Pane snapshotPane;
 
 	@FXML
 	Label stopsFileName;
@@ -34,6 +36,15 @@ public class Controller {
 	Label timesFileName;
 	@FXML
 	Label routesFileName;
+
+	@FXML
+	Label stopCount;
+	@FXML
+	Label timesCount;
+	@FXML
+	Label tripsCount;
+	@FXML
+	Label routesCount;
 
 	public Controller(){
 		m_SearchSystem = new SearchSystem();
@@ -48,20 +59,19 @@ public class Controller {
 
 	}
 
-	/**
-	 * 
-	 *
-	 */
-	public void importGTFS(){
-
-	}
-
 	public void login(){
 
 	}
 
 	public void save(){
 
+	}
+
+	private void setSnapshot(){
+		tripsCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getTripsCount()));
+		stopCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getStopCount()));
+		routesCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getRoutesCount()));
+		timesCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getTimeCount()));
 	}
 
 	public void setStage(Stage stage){
@@ -102,8 +112,8 @@ public class Controller {
 
 	@FXML
 	private  void openTrips(){
-		m_SearchSystem.setRoutesFile(getFile());
-		String path = m_SearchSystem.getRoutesFile().getPath();
+		m_SearchSystem.setTripsFile(getFile());
+		String path = m_SearchSystem.getTripsFile().getPath();
 		String filename = path.substring(path.lastIndexOf('\\') + 1);
 		tripsFileName.setText(filename);
 	}
@@ -117,11 +127,18 @@ public class Controller {
 	@FXML
 	private void uploadFiles(){
 		m_SearchSystem.uploadFiles();
+		setSnapshot();
+		snapshotPane.setVisible(true);
+		snapshotPane.setDisable(false);
 		openPane.setVisible(false);
+		openPane.setDisable(true);
 	}
 
 	@FXML
 	private void openFile(){
+		snapshotPane.setVisible(false);
+		snapshotPane.setDisable(true);
+		openPane.setDisable(false);
 		openPane.setVisible(true);
 	}
 

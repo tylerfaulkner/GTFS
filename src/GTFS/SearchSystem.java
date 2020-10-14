@@ -1,3 +1,10 @@
+/*
+ * Course: SE2030 - 011
+ * Fall 2020
+ * Lab 5 - Classes And Git
+ * Author: Tyler Faulkner
+ * Created: 10/14/2020
+ */
 package GTFS;
 
 
@@ -14,6 +21,8 @@ import java.util.List;
  * @created 08-Oct-2020 9:37:06 AM
  */
 public class SearchSystem {
+
+	private boolean missingFiles = false;
 
 	public DataGTFS m_DataGTFS;
 
@@ -127,9 +136,11 @@ public class SearchSystem {
 		try {
 			m_DataGTFS.setRoutes(routes);
 		} catch (NullPointerException e){
-			System.out.println("No route file found.");
+			missingFiles = true;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(Alert.AlertType.ERROR, "The route file has either been moved or " +
+					"deleted from your system since being selected.");
+			alert.showAndWait();
 		}
 	}
 
@@ -137,11 +148,11 @@ public class SearchSystem {
 		try {
 			m_DataGTFS.setStops(stops);
 		} catch (NullPointerException e){
-			System.out.println("No stop file found.");
+			missingFiles = true;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e){
-
+			Alert alert = new Alert(Alert.AlertType.ERROR, "The route file has either been moved or " +
+					"deleted from your system since being selected.");
+			alert.showAndWait();
 		}
 	}
 
@@ -149,9 +160,11 @@ public class SearchSystem {
 		try {
 			m_DataGTFS.setStopTime(stopTime);
 		} catch (NullPointerException e){
-			System.out.println("No stop times file found.");
+			missingFiles = true;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(Alert.AlertType.ERROR, "The route file has either been moved or " +
+					"deleted from your system since being selected.");
+			alert.showAndWait();
 		}
 	}
 
@@ -159,9 +172,11 @@ public class SearchSystem {
 		try {
 			m_DataGTFS.setTrips(trips);
 		} catch (NullPointerException e){
-			System.out.println("No trips file found.");
+			missingFiles = true;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(Alert.AlertType.ERROR, "The route file has either been moved or " +
+					"deleted from your system since being selected.");
+			alert.showAndWait();
 		}
 	}
 
@@ -170,6 +185,12 @@ public class SearchSystem {
 		setStopTime(timesFile);
 		setTrips(tripsFile);
 		setRoutes(routesFile);
+		if (missingFiles){
+			Alert alert = new Alert(Alert.AlertType.INFORMATION, "Not all GTFS files were uploaded. " +
+					"Some program functionality may not be available.");
+			alert.setHeaderText("Missing Files");
+			alert.show();
+		}
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, "The upload process has been " +
 				"completed successfully.");
 		alert.setHeaderText("Upload Complete");

@@ -35,15 +35,15 @@ public class Trip {
 	}
 
 	public String getRouteID(){
-		return "";
+		return routeID;
 	}
 
-	public String getSerciveID(){
-		return "";
+	public String getServiceID(){
+		return serviceID;
 	}
 
 	public String getTripID(){
-		return "";
+		return tripID;
 	}
 
 }

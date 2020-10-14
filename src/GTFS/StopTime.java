@@ -8,9 +8,14 @@ package GTFS;
  */
 public class StopTime {
 
-	private String stopId;
+	private String tripID;
+	private String arrivalTime;
+	private String departureTime;
+	private int stopID;
 	private int stopSequence;
-	private String tripId;
+	private String stopHeadsign;
+	private int pickUpType;
+	private int dropOffType;
 
 
 	/**
@@ -19,22 +24,28 @@ public class StopTime {
 	 * @param stopSequence
 	 * @param tripId
 	 */
-	public StopTime(String stopId, int stopSequence, String tripId){
-		this.stopId = stopId;
+	public StopTime(String tripID, String arrivalTime, String departureTime, int stopID,
+					int stopSequence, String stopHeadsign, int pickUpType, int dropOffType){
+		this.tripID = tripID;
+		this.arrivalTime = arrivalTime;
+		this.departureTime = departureTime;
+		this.stopID = stopID;
 		this.stopSequence = stopSequence;
-		this.tripId = tripId;
+		this.stopHeadsign = stopHeadsign;
+		this.pickUpType = pickUpType;
+		this.dropOffType = dropOffType;
 	}
 
-	public String getStopID(){
-		return "";
+	public int getStopID(){
+		return stopID;
 	}
 
-	public String getStopSequence(){
-		return "";
+	public int getStopSequence(){
+		return stopSequence;
 	}
 
 	public String getTripID(){
-		return "";
+		return tripID;
 	}
 
 }
