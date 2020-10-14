@@ -1,3 +1,10 @@
+/*
+ * Course: SE2030 - 021
+ * Fall 2020
+ * Lab 5 - Classes And Git
+ * Author: Tyler Faulkner
+ * Created: 10/08/2020
+ */
 package GTFS;
 
 
@@ -17,34 +24,32 @@ import java.io.File;
 public class Controller {
 
 	private boolean vaildAccount;
-	public SearchSystem m_SearchSystem;
+	private SearchSystem m_SearchSystem;
 	private Stage stage;
 
 	@FXML
-	Pane openPane = new Pane();
+	private Pane openPane;
 
 	@FXML
-	Pane lastPane;
-	@FXML
-	Pane snapshotPane;
+	private Pane snapshotPane;
 
 	@FXML
-	Label stopsFileName;
+	private Label stopsFileName;
 	@FXML
-	Label tripsFileName;
+	private Label tripsFileName;
 	@FXML
-	Label timesFileName;
+	private Label timesFileName;
 	@FXML
-	Label routesFileName;
+	private Label routesFileName;
 
 	@FXML
-	Label stopCount;
+	private Label stopCount;
 	@FXML
-	Label timesCount;
+	private Label timesCount;
 	@FXML
-	Label tripsCount;
+	private Label tripsCount;
 	@FXML
-	Label routesCount;
+	private Label routesCount;
 
 	public Controller(){
 		m_SearchSystem = new SearchSystem();
@@ -72,6 +77,13 @@ public class Controller {
 		stopCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getStopCount()));
 		routesCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getRoutesCount()));
 		timesCount.setText(String.valueOf(m_SearchSystem.m_DataGTFS.getTimeCount()));
+	}
+
+	private void removeText(){
+		routesFileName.setText("");
+		tripsFileName.setText("");
+		stopsFileName.setText("");
+		timesFileName.setText("");
 	}
 
 	public void setStage(Stage stage){
@@ -128,6 +140,7 @@ public class Controller {
 	private void uploadFiles(){
 		m_SearchSystem.uploadFiles();
 		setSnapshot();
+		removeText();
 		snapshotPane.setVisible(true);
 		snapshotPane.setDisable(false);
 		openPane.setVisible(false);
