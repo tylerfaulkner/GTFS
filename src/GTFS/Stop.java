@@ -15,9 +15,11 @@ package GTFS;
  */
 public class Stop {
 
-	private String stopId;
-	private double stopLat;
-	private double stopLong;
+	private int stopId;
+	private String stopName;
+	private String stopDesc;
+	private String stopLat;
+	private String stopLong;
 
 	/**
 	 * 
@@ -25,21 +27,23 @@ public class Stop {
 	 * @param stopLat
 	 * @param stopLong
 	 */
-	public Stop(String stopId, double stopLat, double stopLong){
+	public Stop(int stopId, String stopName, String stopDesc, String stopLat, String stopLong){
 		this.stopId = stopId;
+		this.stopName = stopName;
+		this.stopDesc = stopDesc;
 		this.stopLat = stopLat;
 		this.stopLong = stopLong;
 	}
 
-	public Double getLat(){
+	public String getLat(){
 		return stopLat;
 	}
 
-	public Double getLong(){
+	public String getLong(){
 		return stopLong;
 	}
 
-	public String getStopID(){
+	public int getStopID(){
 		return stopId;
 	}
 

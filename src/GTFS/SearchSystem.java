@@ -1,8 +1,11 @@
 package GTFS;
 
 
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -123,6 +126,8 @@ public class SearchSystem {
 	private void setRoutes(File routes) {
 		try {
 			m_DataGTFS.setRoutes(routes);
+		} catch (NullPointerException e){
+			System.out.println("No route file found.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -131,14 +136,20 @@ public class SearchSystem {
 	private void setStops(File stops) {
 		try {
 			m_DataGTFS.setStops(stops);
+		} catch (NullPointerException e){
+			System.out.println("No stop file found.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (IOException e){
+
 		}
 	}
 
 	private void setStopTime(File stopTime) {
 		try {
 			m_DataGTFS.setStopTime(stopTime);
+		} catch (NullPointerException e){
+			System.out.println("No stop times file found.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -147,6 +158,8 @@ public class SearchSystem {
 	private void setTrips(File trips) {
 		try {
 			m_DataGTFS.setTrips(trips);
+		} catch (NullPointerException e){
+			System.out.println("No trips file found.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -155,7 +168,11 @@ public class SearchSystem {
 	public void uploadFiles(){
 		setStops(stopFile);
 		setStopTime(timesFile);
-		setRoutes(routesFile);
 		setTrips(tripsFile);
+		setRoutes(routesFile);
+		Alert alert = new Alert(Alert.AlertType.INFORMATION, "The upload process has been " +
+				"completed successfully.");
+		alert.setHeaderText("Upload Complete");
+		alert.showAndWait();
 	}
 }

@@ -39,9 +39,6 @@ public class Controller {
 		m_SearchSystem = new SearchSystem();
 	}
 
-	public void finalize() throws Throwable {
-
-	}
 
 	private void display(){
 
@@ -84,7 +81,7 @@ public class Controller {
 		m_SearchSystem.setRoutesFile(getFile());
 		String path = m_SearchSystem.getRoutesFile().getPath();
 		String filename = path.substring(path.lastIndexOf('\\') + 1);
-		stopsFileName.setText(filename);
+		routesFileName.setText(filename);
 	}
 
 	@FXML
@@ -100,7 +97,7 @@ public class Controller {
 		m_SearchSystem.setTimesFile(getFile());
 		String path = m_SearchSystem.getTimesFile().getPath();
 		String filename = path.substring(path.lastIndexOf('\\') + 1);
-		stopsFileName.setText(filename);
+		timesFileName.setText(filename);
 	}
 
 	@FXML
@@ -108,7 +105,7 @@ public class Controller {
 		m_SearchSystem.setRoutesFile(getFile());
 		String path = m_SearchSystem.getRoutesFile().getPath();
 		String filename = path.substring(path.lastIndexOf('\\') + 1);
-		stopsFileName.setText(filename);
+		tripsFileName.setText(filename);
 	}
 
 	@FXML
@@ -120,6 +117,7 @@ public class Controller {
 	@FXML
 	private void uploadFiles(){
 		m_SearchSystem.uploadFiles();
+		openPane.setVisible(false);
 	}
 
 	@FXML
