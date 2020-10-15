@@ -103,7 +103,7 @@ public class DataGTFS {
 	}
 
 	public void setRoutes(File routesFile) throws FileNotFoundException {
-		List<Route> newRoutes = new ArrayList<>();
+		routes.clear();
 		FileInputStream fileInputStream = new FileInputStream(routesFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		read.nextLine(); //used to skip header line
@@ -123,48 +123,47 @@ public class DataGTFS {
 			} catch (NoSuchElementException e){
 
 			}
-			newRoutes.add(new Route(routeID, agencyID, routeShortName, routeLongName, routeDesc,
+			routes.add(new Route(routeID, agencyID, routeShortName, routeLongName, routeDesc,
 					Integer.parseInt(routeType), routeURL, routeColor, routeTextColor));
 		}
-		routes = newRoutes;
 	}
 
 	public void setStops(File stopFile) throws FileNotFoundException {
-		List<Stop> newStops = new ArrayList<>();
+		stops.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		read.nextLine();
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			newStops.add(new Stop(Integer.parseInt(in.next()), in.next(), in.next(),
+			stops.add(new Stop(Integer.parseInt(in.next()), in.next(), in.next(),
 					in.next(), in.next()));
 		}
-		stops = newStops;
+		stops.addAll(stops);
 	}
 
 	public void setStopTime(File stopTimesFile) throws FileNotFoundException {
-		List<StopTime> newTimes = new ArrayList<>();
+		stopTimes.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopTimesFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		read.nextLine();
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			newTimes.add(new StopTime(in.next(), in.next(), in.next(), Integer.parseInt(in.next()),
+			stopTimes.add(new StopTime(in.next(), in.next(), in.next(), Integer.parseInt(in.next()),
 					Integer.parseInt(in.next()), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
 		}
-		stopTimes = newTimes;
+		stopTimes.addAll(stopTimes);
 	}
 
 	public void setTrips(File tripsFile) throws FileNotFoundException {
-		List<Trip> newTrips = new ArrayList<>();
+		trips.clear();
 		FileInputStream fileInputStream = new FileInputStream(tripsFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		read.nextLine();
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			newTrips.add(new Trip(in.next(), in.next(), in.next(), in.next(),
+			trips.add(new Trip(in.next(), in.next(), in.next(), in.next(),
 					Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
 		}
-		trips = newTrips;
+
 	}
 }

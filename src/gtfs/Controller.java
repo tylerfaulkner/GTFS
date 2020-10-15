@@ -104,6 +104,7 @@ public class Controller {
      * @author Tyler Faulkner
      */
     private void setSnapshot() {
+
         tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
         stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
         routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
