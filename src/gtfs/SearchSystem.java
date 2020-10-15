@@ -56,11 +56,16 @@ public class SearchSystem {
      * @param
      */
     public void getTotalTripOfStop() {
-        ArrayList<String[]> stops = new ArrayList<>();
+        ArrayList<String> stops = new ArrayList<>();
+        ArrayList<Integer> count = new ArrayList<>();
         ArrayList<StopTime> stop = dataGTFS.getAllStopTimes();
         for (StopTime a: stop){
-            if (!stops.contains(a.getStopID()[])){
-                stops.add(a.getStopID()[]);
+            if (!stops.contains(a.getStopID())){
+                stops.add(a.getStopID()+"");
+                count.add(0);
+            }
+            else if (stops.contains(a.getTripID())) {
+                count.set(stops.indexOf(a.getStopID()), count.get(stops.indexOf(a.getStopID()) + 1));
             }
         }
     }
