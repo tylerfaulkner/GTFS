@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GTFS.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfs.Controller">
    <children>
-      <Pane fx:id="openPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
+      <Pane fx:id="openPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0">
          <children>
             <Label layoutX="133.0" layoutY="105.0" text="stops.txt:" />
             <Label layoutX="137.0" layoutY="162.0" text="trips.txt" />
@@ -43,5 +43,13 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Pane fx:id="snapshotPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label fx:id="stopsFileName" layoutX="14.0" layoutY="14.0" text="Label" />
+            <Label fx:id="tripsFileName" layoutX="14.0" layoutY="85.0" text="Label" />
+            <Label fx:id="timesFileName" layoutX="14.0" layoutY="160.0" text="Label" />
+            <Label fx:id="routesFileName" layoutX="14.0" layoutY="229.0" text="Label" />
+         </children>
+      </Pane>
    </children>
 </Pane>
