@@ -22,6 +22,27 @@ public class StopTime {
     private int stopSequence;
     private String stopHeadsign;
     private int pickUpType;
+
+    public String getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public String getStopHeadsign() {
+        return stopHeadsign;
+    }
+
+    public int getPickUpType() {
+        return pickUpType;
+    }
+
+    public int getDropOffType() {
+        return dropOffType;
+    }
+
     private int dropOffType;
 
 

@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,11 +52,17 @@ public class SearchSystem {
 
     }
 
-    /** to be made
-     * @param stopId
+    /** Display the number of trips each stop is found on.
+     * @param
      */
-    public void getTotalTripOfStop(String stopId) {
-
+    public void getTotalTripOfStop() {
+        ArrayList<String[]> stops = new ArrayList<>();
+        ArrayList<StopTime> stop = dataGTFS.getAllStopTimes();
+        for (StopTime a: stop){
+            if (!stops.contains(a.getStopID()[])){
+                stops.add(a.getStopID()[]);
+            }
+        }
     }
 
     /** to be made
