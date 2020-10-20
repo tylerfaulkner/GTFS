@@ -17,6 +17,23 @@ public class Trip {
     private String routeID;
     private String serviceID;
     private String tripID;
+
+    public String getTripHeadSign() {
+        return tripHeadSign;
+    }
+
+    public int getDirectionID() {
+        return directionID;
+    }
+
+    public int getBlockID() {
+        return blockID;
+    }
+
+    public String getShapeID() {
+        return shapeID;
+    }
+
     private String tripHeadSign;
     private int directionID;
     private int blockID;

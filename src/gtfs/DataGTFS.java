@@ -22,6 +22,7 @@ public class DataGTFS {
 	private static String timesHeader = "trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type";
 	private static String routeHeader = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color";
 
+
 	private List<Route> routes;
 	private List<Stop> stops;
 	private List<StopTime> stopTimes;
