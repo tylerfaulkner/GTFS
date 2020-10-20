@@ -17,6 +17,10 @@ import java.util.*;
  * @created 08-Oct-2020 9:37:02 AM
  */
 public class DataGTFS {
+	private static String tripHeader = "route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id";
+	private static String stopHeader = "stop_id,stop_name,stop_desc,stop_lat,stop_lon";
+	private static String timesHeader = "trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type";
+	private static String routeHeader = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color";
 
 	private List<Route> routes;
 	private List<Stop> stops;
@@ -106,7 +110,7 @@ public class DataGTFS {
 		routes.clear();
 		FileInputStream fileInputStream = new FileInputStream(routesFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		read.nextLine(); //used to skip header line
+		validateRouteHeader(read.nextLine());
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
 			String routeID = in.next();
@@ -132,7 +136,7 @@ public class DataGTFS {
 		stops.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		read.nextLine();
+		validateStopHeader(read.nextLine());
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
 			stops.add(new Stop(Integer.parseInt(in.next()), in.next(), in.next(),
@@ -145,7 +149,7 @@ public class DataGTFS {
 		stopTimes.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopTimesFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		read.nextLine();
+		validateTimeHeader(read.nextLine());
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
 			stopTimes.add(new StopTime(in.next(), in.next(), in.next(), Integer.parseInt(in.next()),
@@ -158,12 +162,36 @@ public class DataGTFS {
 		trips.clear();
 		FileInputStream fileInputStream = new FileInputStream(tripsFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		read.nextLine();
+		validateTripHeader(read.nextLine());
 		while (read.hasNextLine()) {
 			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
 			trips.add(new Trip(in.next(), in.next(), in.next(), in.next(),
 					Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
 		}
 
+	}
+
+	private void validateTripHeader(String header) throws IllegalArgumentException{
+		if (!header.equals(tripHeader)){
+			throw new IllegalArgumentException("Trip header is invalid");
+		}
+	}
+
+	private void validateStopHeader(String header) throws IllegalArgumentException{
+		if (!header.equals(stopHeader)){
+			throw new IllegalArgumentException("Stop header is invalid");
+		}
+	}
+
+	private void validateTimeHeader(String header) throws IllegalArgumentException{
+		if (!header.equals(timesHeader)){
+			throw new IllegalArgumentException("Stop header is invalid");
+		}
+	}
+
+	private void validateRouteHeader(String header) throws IllegalArgumentException{
+		if (!header.equals(routeHeader)){
+			throw new IllegalArgumentException("Stop header is invalid");
+		}
 	}
 }
