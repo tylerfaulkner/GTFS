@@ -113,23 +113,7 @@ public class DataGTFS {
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		validateRouteHeader(read.nextLine());
 		while (read.hasNextLine()) {
-			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			String routeID = in.next();
-			String agencyID = in.next();
-			String routeShortName = in.next();
-			String routeLongName = in.next();
-			String routeDesc = in.next();
-			String routeType = in.next();
-			String routeURL = in.next();
-			String routeColor = in.next();
-			String routeTextColor = "";
-			try {
-				routeTextColor = in.next();
-			} catch (NoSuchElementException e){
-
-			}
-			routes.add(new Route(routeID, agencyID, routeShortName, routeLongName, routeDesc,
-					Integer.parseInt(routeType), routeURL, routeColor, routeTextColor));
+			validateRouteLine(read.nextLine());
 		}
 	}
 
@@ -139,11 +123,8 @@ public class DataGTFS {
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		validateStopHeader(read.nextLine());
 		while (read.hasNextLine()) {
-			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			stops.add(new Stop(Integer.parseInt(in.next()), in.next(), in.next(),
-					in.next(), in.next()));
+			validateStopLine(read.nextLine());
 		}
-		stops.addAll(stops);
 	}
 
 	public void setStopTime(File stopTimesFile) throws FileNotFoundException {
@@ -152,11 +133,8 @@ public class DataGTFS {
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		validateTimeHeader(read.nextLine());
 		while (read.hasNextLine()) {
-			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			stopTimes.add(new StopTime(in.next(), in.next(), in.next(), Integer.parseInt(in.next()),
-					Integer.parseInt(in.next()), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
+			validateTimesLine(read.nextLine());
 		}
-		stopTimes.addAll(stopTimes);
 	}
 
 	public void setTrips(File tripsFile) throws FileNotFoundException {
@@ -165,11 +143,71 @@ public class DataGTFS {
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
 		validateTripHeader(read.nextLine());
 		while (read.hasNextLine()) {
-			Scanner in = new Scanner(read.nextLine()).useDelimiter(",");
-			trips.add(new Trip(in.next(), in.next(), in.next(), in.next(),
-					Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
+			validateTripLine(read.nextLine());
 		}
 
+	}
+
+	private void validateTimesLine(String line){
+		Scanner in = new Scanner(line).useDelimiter(",");
+		String tripID = in.next();
+		String arrivalTime = in.next();
+		String departureTime = in.next();
+		String stopID = in.next();
+		String stopSequence = in.next();
+		if(tripID.equals("") || stopID.equals("") || stopSequence.equals("")){
+			throw new IllegalArgumentException("Stop Times must include trip_id, stop_id, and stop_sequence");
+		}
+		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime, Integer.parseInt(stopID),
+				Integer.parseInt(stopSequence), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
+	}
+
+	private void validateStopLine(String line){
+		Scanner in = new Scanner(line).useDelimiter(",");
+		String stopID = in.next();
+		String stopName = in.next();
+		String stopDesc = in.next();
+		String stopLat = in.next();
+		String stopLon = in.next();
+		if(stopID.equals("") || stopLat.equals("") || stopLon.equals("")){
+			throw new IllegalArgumentException("Stop must contain stop_id, stop_lat, and stop_lon.");
+		}
+		stops.add(new Stop(Integer.parseInt(stopID), stopName, stopDesc, stopLat, stopLon));
+	}
+
+	private void validateTripLine(String line){
+		Scanner in = new Scanner(line).useDelimiter(",");
+		String routeID = in.next();
+		String serviceID = in.next();
+		String tripID = in.next();
+		if(routeID.equals("") || tripID.equals("")){
+			throw new IllegalArgumentException("Trip must have both a route_id and trip_id");
+		}
+		trips.add(new Trip(routeID, serviceID, tripID, in.next(),
+				Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
+	}
+
+	private void validateRouteLine(String line){
+		Scanner in = new Scanner(line).useDelimiter(",");
+		String routeID = in.next();
+		String agencyID = in.next();
+		String routeShortName = in.next();
+		String routeLongName = in.next();
+		String routeDesc = in.next();
+		String routeType = in.next();
+		String routeURL = in.next();
+		String routeColor = in.next();
+		String routeTextColor = "";
+		if(routeID.equals("") || routeColor.equals("")){
+			throw new IllegalArgumentException("Both a route ID and route color are required to make a route.");
+		}
+		try {
+			routeTextColor = in.next();
+		} catch (NoSuchElementException e){
+			//used to skip unnecessary fail state
+		}
+		routes.add(new Route(routeID, agencyID, routeShortName, routeLongName, routeDesc,
+				Integer.parseInt(routeType), routeURL, routeColor, routeTextColor));
 	}
 
 	private void validateTripHeader(String header) throws IllegalArgumentException{
