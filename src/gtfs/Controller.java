@@ -105,10 +105,10 @@ public class Controller {
      */
     private void setSnapshot() {
 
-        tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
-        stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
-        routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
-        timesCount.setText("times count: " + searchSystem.dataGTFS.getTimeCount());
+        tripsCount.setText(Integer.toString(searchSystem.dataGTFS.getTripsCount()));
+        stopCount.setText(Integer.toString(searchSystem.dataGTFS.getStopCount()));
+        routesCount.setText(Integer.toString(searchSystem.dataGTFS.getRoutesCount()));
+        timesCount.setText(Integer.toString(searchSystem.dataGTFS.getTimeCount()));
     }
 
     /**
@@ -202,7 +202,9 @@ public class Controller {
     @FXML
     private void openFinish() {
         snapshotPane.setVisible(true);
+        snapshotPane.setDisable(false);
         openPane.setVisible(false);
+        openPane.setDisable(true);
         uploadFiles();
 
 
@@ -228,6 +230,7 @@ public class Controller {
      */
     @FXML
     private void openFile() {
+        removeText();
         snapshotPane.setVisible(false);
         snapshotPane.setDisable(true);
         openPane.setDisable(false);
