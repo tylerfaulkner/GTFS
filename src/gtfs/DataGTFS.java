@@ -41,7 +41,7 @@ public class DataGTFS {
 	}
 
 	public List<Stop> getAllStops(){
-		return null;
+		return stops;
 	}
 
 	public List<StopTime> getAllStopTimes(){

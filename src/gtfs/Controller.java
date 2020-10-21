@@ -10,11 +10,15 @@ package gtfs;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * controls user input within the gui
@@ -35,6 +39,9 @@ public class Controller {
     private Pane snapshotPane;
 
     @FXML
+    private ScrollPane stopsPane;
+
+    @FXML
     private Label stopsFileName;
     @FXML
     private Label tripsFileName;
@@ -51,6 +58,8 @@ public class Controller {
     private Label tripsCount;
     @FXML
     private Label routesCount;
+    @FXML
+    private GridPane stopGrid;
 
     /**
      * runs code to create new search system object
@@ -219,6 +228,9 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
+        if (searchSystem.getStopFile() != null) {
+            setStopGridLayout();
+        }
 
     }
 
@@ -237,6 +249,22 @@ public class Controller {
         openPane.setVisible(true);
     }
 
+    @FXML
+    private void viewStops(){
+        snapshotPane.setVisible(false);
+        snapshotPane.setDisable(true);
+        stopsPane.setVisible(true);
+        stopsPane.setDisable(false);
+    }
+
+    @FXML
+    private void stopsToHome(){
+        snapshotPane.setVisible(true);
+        snapshotPane.setDisable(false);
+        stopsPane.setVisible(false);
+        stopsPane.setDisable(true);
+    }
+
     /**
      * props the user with a file opener and get a file from user
      *
@@ -248,5 +276,19 @@ public class Controller {
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
         File file = output.showOpenDialog(stage);
         return file;
+    }
+
+    private void setStopGridLayout(){
+        List<Stop> stops = searchSystem.getStopsList();
+        Iterator iter = stops.iterator();
+        int row = 1;
+        int idColumn = 0;
+        while (iter.hasNext()){
+            Stop stop = (Stop) iter.next();
+            Label label = new Label();
+            label.setText(Integer.toString(stop.getStopID()));
+            stopGrid.addRow(row, label);
+            row++;
+        }
     }
 }

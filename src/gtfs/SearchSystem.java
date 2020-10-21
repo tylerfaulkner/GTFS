@@ -139,6 +139,10 @@ public class SearchSystem {
         return tripsFile;
     }
 
+    public List getStopsList(){
+        return dataGTFS.getAllStops();
+    }
+
     private void setRoutes(File routes) {
         try {
             dataGTFS.setRoutes(routes);
