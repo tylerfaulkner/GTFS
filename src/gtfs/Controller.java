@@ -9,12 +9,14 @@ package gtfs;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * controls user input within the gui
@@ -260,23 +262,56 @@ public class Controller {
     }
 
     @FXML
-    private void exportRoutes(){
+    private void exportRoutes() {
+        try{
         searchSystem.dataGTFS.exportRoutes(getSaveFile());
+        }
+        catch (FileNotFoundException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Could Not Load File");
+            alert.setContentText("The file could not be saved");
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
     private void exportStops(){
-        searchSystem.dataGTFS.exportTrips(getSaveFile());
+        try{
+            searchSystem.dataGTFS.exportStops(getSaveFile());
+        }
+        catch (FileNotFoundException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Could Not Load File");
+            alert.setContentText("The file could not be saved");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void exportStopTimes(){
-        searchSystem.dataGTFS.exportTrips(getSaveFile());
+        try{
+            searchSystem.dataGTFS.exportStopTimes(getSaveFile());
+        }
+        catch (FileNotFoundException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Could Not Load File");
+            alert.setContentText("The file could not be saved");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void exportTrips(){
-        searchSystem.dataGTFS.exportTrips(getSaveFile());
+        try{
+            searchSystem.dataGTFS.exportTrips(getSaveFile());
+        }
+        catch (FileNotFoundException e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Could Not Load File");
+            alert.setContentText("The file could not be saved");
+            alert.showAndWait();
+        }
     }
 
     private File getSaveFile() {

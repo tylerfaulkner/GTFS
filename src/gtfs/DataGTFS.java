@@ -241,25 +241,51 @@ public class DataGTFS {
 
 	public void exportRoutes(File output) throws FileNotFoundException {
 		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
-		File outputFile = new OutputStreamWriter();
+		PrintWriter writer = new PrintWriter(output);
 		for (Route r:routes
 			 ) {
 			list += r.toString() + "\n";
 		}
 
-		outputFile.
+		writer.print(list);
+		writer.close();
 
 	}
 
-	public void exportStops(File output){
+	public void exportStops(File output) throws FileNotFoundException {
+		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		PrintWriter writer = new PrintWriter(output);
+		for (Route r:routes
+		) {
+			list += r.toString() + "\n";
+		}
 
+		writer.print(list);
+		writer.close();
 	}
 
-	public void exportTrips(File output){
+	public void exportTrips(File output) throws FileNotFoundException {
+		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		PrintWriter writer = new PrintWriter(output);
+		for (Route r:routes
+		) {
+			list += r.toString() + "\n";
+		}
 
+		writer.print(list);
+		writer.close();
 	}
 
-	public void exportStopTimes(File output){
+	public void exportStopTimes(File output) throws FileNotFoundException {
+		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		PrintWriter writer = new PrintWriter(output);
+		for (Route r:routes
+		) {
+			list += r.toString() + "\n";
+		}
+
+		writer.print(list);
+		writer.close();
 
 
 	}

@@ -82,4 +82,11 @@ public class StopTime {
         return tripID;
     }
 
+    public String toString(){
+        String output = "";
+
+
+        return output;
+    }
+
 }

@@ -53,4 +53,11 @@ public class Stop {
         return stopId;
     }
 
+    public String toString(){
+        String output = "";
+
+
+        return output;
+    }
+
 }
