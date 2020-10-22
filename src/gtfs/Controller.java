@@ -261,21 +261,28 @@ public class Controller {
 
     @FXML
     private void exportRoutes(){
-
+        searchSystem.dataGTFS.exportRoutes(getSaveFile());
     }
 
     @FXML
     private void exportStops(){
-
+        searchSystem.dataGTFS.exportTrips(getSaveFile());
     }
 
     @FXML
     private void exportStopTimes(){
-
+        searchSystem.dataGTFS.exportTrips(getSaveFile());
     }
 
     @FXML
     private void exportTrips(){
+        searchSystem.dataGTFS.exportTrips(getSaveFile());
+    }
 
+    private File getSaveFile() {
+        FileChooser output = new FileChooser();
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
+        File file = output.showSaveDialog(stage);
+        return file;
     }
 }

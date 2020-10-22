@@ -74,4 +74,17 @@ public class Trip {
         return tripID;
     }
 
+    public String toString(){
+        String output = "";
+        if (routeID.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeID;
+        }
+
+
+        return output;
+    }
+
 }

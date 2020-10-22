@@ -57,4 +57,62 @@ public class Route {
         return routeID;
     }
 
+    public String toString(){
+        String output = "";
+        if (routeID.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeID;
+        }
+
+        if (agencyID.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += agencyID;
+        }
+        if (routeShortName.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeShortName;
+        }
+        if (routeLongName.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeLongName;
+        }
+        if (routeDesc.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeDesc;
+        }
+        output += routeDesc;
+        if (routeURL.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeURL;
+        }
+        if (routeColor.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeColor;
+        }
+        if (routeTextColor.isEmpty()){
+            output += ", ";
+        }
+        else {
+            output += routeTextColor;
+        }
+
+        return output;
+
+    }
+
+
 }

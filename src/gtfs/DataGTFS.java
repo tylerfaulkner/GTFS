@@ -8,6 +8,9 @@
 package gtfs;
 
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.util.*;
 
@@ -235,4 +238,30 @@ public class DataGTFS {
 			throw new IllegalArgumentException("Stop header is invalid");
 		}
 	}
+
+	public void exportRoutes(File output) throws FileNotFoundException {
+		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		File outputFile = new OutputStreamWriter();
+		for (Route r:routes
+			 ) {
+			list += r.toString() + "\n";
+		}
+
+		outputFile.
+
+	}
+
+	public void exportStops(File output){
+
+	}
+
+	public void exportTrips(File output){
+
+	}
+
+	public void exportStopTimes(File output){
+
+
+	}
+
 }
