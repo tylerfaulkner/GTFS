@@ -51,6 +51,10 @@ public class Controller {
     private Label tripsCount;
     @FXML
     private Label routesCount;
+    @FXML
+    private Pane savePane;
+
+    private Pane currentPane = new Pane();
 
     /**
      * runs code to create new search system object
@@ -202,7 +206,7 @@ public class Controller {
     @FXML
     private void openFinish() {
         snapshotPane.setVisible(true);
-        openPane.setVisible(false);
+        currentPane.setVisible(false);
         uploadFiles();
 
 
@@ -228,10 +232,11 @@ public class Controller {
      */
     @FXML
     private void openFile() {
-        snapshotPane.setVisible(false);
-        snapshotPane.setDisable(true);
+        currentPane.setVisible(false);
+        currentPane.setDisable(true);
         openPane.setDisable(false);
         openPane.setVisible(true);
+        currentPane = openPane;
     }
 
     /**
@@ -245,5 +250,12 @@ public class Controller {
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
         File file = output.showOpenDialog(stage);
         return file;
+    }
+
+    @FXML
+    private void setSavePane(){
+        savePane.setVisible(true);
+        currentPane.setVisible(false);
+        currentPane = savePane;
     }
 }

@@ -28,7 +28,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openFile" text="Open" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="setSavePane" mnemonicParsing="false" onAction="#saveFiles" text="Save" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -51,5 +51,6 @@
             <Label fx:id="tripsCount" layoutX="14.0" layoutY="229.0" text="Label" />
          </children>
       </Pane>
+      <Pane fx:id="savePane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" />
    </children>
 </Pane>
