@@ -10,15 +10,11 @@ package gtfs;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * controls user input within the gui
@@ -39,9 +35,6 @@ public class Controller {
     private Pane snapshotPane;
 
     @FXML
-    private ScrollPane stopsPane;
-
-    @FXML
     private Label stopsFileName;
     @FXML
     private Label tripsFileName;
@@ -59,7 +52,9 @@ public class Controller {
     @FXML
     private Label routesCount;
     @FXML
-    private GridPane stopGrid;
+    private Pane savePane;
+
+    private Pane currentPane = new Pane();
 
     /**
      * runs code to create new search system object
@@ -114,10 +109,10 @@ public class Controller {
      */
     private void setSnapshot() {
 
-        tripsCount.setText(Integer.toString(searchSystem.dataGTFS.getTripsCount()));
-        stopCount.setText(Integer.toString(searchSystem.dataGTFS.getStopCount()));
-        routesCount.setText(Integer.toString(searchSystem.dataGTFS.getRoutesCount()));
-        timesCount.setText(Integer.toString(searchSystem.dataGTFS.getTimeCount()));
+        tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
+        stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
+        routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
+        timesCount.setText("times count: " + searchSystem.dataGTFS.getTimeCount());
     }
 
     /**
@@ -211,9 +206,7 @@ public class Controller {
     @FXML
     private void openFinish() {
         snapshotPane.setVisible(true);
-        snapshotPane.setDisable(false);
-        openPane.setVisible(false);
-        openPane.setDisable(true);
+        currentPane.setVisible(false);
         uploadFiles();
 
 
@@ -228,9 +221,6 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
-        if (searchSystem.getStopFile() != null && searchSystem.getRoutesFile() != null) {
-            setStopGridLayout();
-        }
 
     }
 
@@ -242,27 +232,11 @@ public class Controller {
      */
     @FXML
     private void openFile() {
-        removeText();
-        snapshotPane.setVisible(false);
-        snapshotPane.setDisable(true);
+        currentPane.setVisible(false);
+        currentPane.setDisable(true);
         openPane.setDisable(false);
         openPane.setVisible(true);
-    }
-
-    @FXML
-    private void viewStops() {
-        snapshotPane.setVisible(false);
-        snapshotPane.setDisable(true);
-        stopsPane.setVisible(true);
-        stopsPane.setDisable(false);
-    }
-
-    @FXML
-    private void stopsToHome() {
-        snapshotPane.setVisible(true);
-        snapshotPane.setDisable(false);
-        stopsPane.setVisible(false);
-        stopsPane.setDisable(true);
+        currentPane = openPane;
     }
 
     /**
@@ -278,20 +252,30 @@ public class Controller {
         return file;
     }
 
-    private void setStopGridLayout() {
-        List<Stop> stops = searchSystem.getStopsList();
-        Iterator iter = stops.iterator();
-        int row = 1;
-        int idColumn = 0;
-        while (iter.hasNext()) {
-            Stop stop = (Stop) iter.next();
-            Label stopID = new Label();
-            stopID.setText(Integer.toString(stop.getStopID()));
-            Label tripCount = new Label();
-            tripCount.setText(Integer.toString(searchSystem.getTotalTripOfStop(stop.getStopID())));
-            stopGrid.addRow(row, stopID);
-            stopGrid.add(tripCount, 1, row);
-            row++;
-        }
+    @FXML
+    private void setSavePane(){
+        savePane.setVisible(true);
+        currentPane.setVisible(false);
+        currentPane = savePane;
+    }
+
+    @FXML
+    private void exportRoutes(){
+
+    }
+
+    @FXML
+    private void exportStops(){
+
+    }
+
+    @FXML
+    private void exportStopTimes(){
+
+    }
+
+    @FXML
+    private void exportTrips(){
+
     }
 }
