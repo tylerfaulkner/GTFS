@@ -258,4 +258,24 @@ public class Controller {
         currentPane.setVisible(false);
         currentPane = savePane;
     }
+
+    @FXML
+    private void exportRoutes(){
+
+    }
+
+    @FXML
+    private void exportStops(){
+
+    }
+
+    @FXML
+    private void exportStopTimes(){
+
+    }
+
+    @FXML
+    private void exportTrips(){
+
+    }
 }
