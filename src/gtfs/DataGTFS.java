@@ -244,7 +244,7 @@ public class DataGTFS {
 		PrintWriter writer = new PrintWriter(output);
 		for (Route r:routes
 			 ) {
-			list += r.toString() + "\n";
+			list += r.toString();
 		}
 
 		writer.print(list);
@@ -253,11 +253,11 @@ public class DataGTFS {
 	}
 
 	public void exportStops(File output) throws FileNotFoundException {
-		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		String list = "stop_id,stop_name,stop_desc,stop_lat,stop_lon\n";
 		PrintWriter writer = new PrintWriter(output);
-		for (Route r:routes
+		for (Stop r:stops
 		) {
-			list += r.toString() + "\n";
+			list += r.toString();
 		}
 
 		writer.print(list);
@@ -265,11 +265,11 @@ public class DataGTFS {
 	}
 
 	public void exportTrips(File output) throws FileNotFoundException {
-		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		String list = "route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id\n";
 		PrintWriter writer = new PrintWriter(output);
-		for (Route r:routes
+		for (Trip r:trips
 		) {
-			list += r.toString() + "\n";
+			list += r.toString();
 		}
 
 		writer.print(list);
@@ -277,9 +277,9 @@ public class DataGTFS {
 	}
 
 	public void exportStopTimes(File output) throws FileNotFoundException {
-		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
+		String list = "trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type\n";
 		PrintWriter writer = new PrintWriter(output);
-		for (Route r:routes
+		for (StopTime r:stopTimes
 		) {
 			list += r.toString() + "\n";
 		}

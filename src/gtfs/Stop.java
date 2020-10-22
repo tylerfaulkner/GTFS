@@ -55,8 +55,24 @@ public class Stop {
 
     public String toString(){
         String output = "";
+        output += stopId;
+        if (!stopName.isEmpty()){
+            output += stopName;
+        }
+        output += ",";
+        if (!stopDesc.isEmpty()){
+            output += stopDesc;
+        }
+        output += ",";
 
-
+        if (!stopLat.isEmpty()){
+            output += stopLat;
+        }
+        output += ",";
+        if (!stopLong.isEmpty()){
+            output += stopLong;
+        }
+        output += ",";
         return output;
     }
 

@@ -76,13 +76,33 @@ public class Trip {
 
     public String toString(){
         String output = "";
-        if (routeID.isEmpty()){
-            output += ", ";
-        }
-        else {
+        if (!routeID.isEmpty()) {
             output += routeID;
         }
+        output += ",";
 
+        if (!serviceID.isEmpty()) {
+            output += serviceID;
+        }
+        output += ",";
+        if (!tripID.isEmpty()) {
+            output += tripID;
+        }
+        output += ",";
+        if (!tripHeadSign.isEmpty()) {
+            output += tripHeadSign;
+        }
+        output += ",";
+        output += directionID;
+        output += ",";
+        if (blockID == 0) {
+            output += blockID;
+        }
+        output += ",";
+        if (!shapeID.isEmpty()) {
+            output += shapeID;
+        }
+        output += ",";
 
         return output;
     }

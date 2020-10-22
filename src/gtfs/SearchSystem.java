@@ -196,10 +196,19 @@ public class SearchSystem {
 	 * @author Tyler Faulkner
 	 */
     public void uploadFiles() {
-        setStops(stopFile);
-        setStopTime(timesFile);
-        setTrips(tripsFile);
-        setRoutes(routesFile);
+
+        if (stopFile != null){
+            setStops(stopFile);
+        }
+        if (timesFile != null) {
+            setStopTime(timesFile);
+        }
+        if (tripsFile != null) {
+            setTrips(tripsFile);
+        }
+        if (routesFile != null) {
+            setRoutes(routesFile);
+        }
         if (missingFiles) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,
 					"Not all GTFS files were uploaded. " +

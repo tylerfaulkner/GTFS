@@ -110,7 +110,6 @@ public class Controller {
      * @author Tyler Faulkner
      */
     private void setSnapshot() {
-
         tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
         stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
         routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
@@ -209,6 +208,7 @@ public class Controller {
     private void openFinish() {
         snapshotPane.setVisible(true);
         currentPane.setVisible(false);
+        currentPane = snapshotPane;
         uploadFiles();
 
 
@@ -252,13 +252,6 @@ public class Controller {
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
         File file = output.showOpenDialog(stage);
         return file;
-    }
-
-    @FXML
-    private void setSavePane(){
-        savePane.setVisible(true);
-        currentPane.setVisible(false);
-        currentPane = savePane;
     }
 
     @FXML
@@ -319,5 +312,12 @@ public class Controller {
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
         File file = output.showSaveDialog(stage);
         return file;
+    }
+
+    @FXML
+    private void saveFiles(){
+        savePane.setVisible(true);
+        currentPane.setVisible(false);
+        currentPane = savePane;
     }
 }

@@ -28,7 +28,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openFile" text="Open" />
-                  <MenuItem fx:id="setSavePane" mnemonicParsing="false" onAction="#saveFiles" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveFiles" text="Save" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -51,12 +51,12 @@
             <Label fx:id="tripsCount" layoutX="14.0" layoutY="229.0" text="Label" />
          </children>
       </Pane>
-      <Pane layoutY="26.0" onMouseClicked="#savePane" prefHeight="374.0" prefWidth="600.0">
+      <Pane fx:id="savePane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
          <children>
             <Button fx:id="exportStops" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exportStops" prefHeight="43.0" prefWidth="123.0" text="Export Stops" />
             <Button fx:id="exportTrips" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#exportTrips" prefHeight="43.0" prefWidth="123.0" text="Export Trips" />
             <Button layoutX="14.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#exportStopTimes" prefHeight="43.0" prefWidth="123.0" text="Export Stop Times" />
-            <Button fx:id="exportRoutes" layoutX="14.0" layoutY="248.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="123.0" text="Export Routes" />
+            <Button layoutX="14.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#exportRoutes" prefHeight="43.0" prefWidth="123.0" text="Export Routes" />
          </children></Pane>
    </children>
 </Pane>

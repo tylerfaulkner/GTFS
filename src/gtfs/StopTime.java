@@ -85,8 +85,35 @@ public class StopTime {
     public String toString(){
         String output = "";
 
+        if (!tripID.isEmpty()) {
+            output += tripID;
+        }
+        output += ",";
+        if (!arrivalTime.isEmpty()) {
+            output += arrivalTime;
+        }
+        output += ",";
+        if (!departureTime.isEmpty()) {
+            output += departureTime;
+        }
+        output += ",";
+        output += stopID;
+        output += ",";
 
-        return output;
+        if (stopSequence != 0) {
+            output += stopSequence;
+        }
+        output += ",";
+        if (stopHeadsign.isEmpty()) {
+            output += stopHeadsign;
+        }
+        output += ",";
+        output += stopHeadsign;
+        output += ",";
+        output += dropOffType;
+        output += dropOffType;
+
+        return output+"\n";
     }
 
 }

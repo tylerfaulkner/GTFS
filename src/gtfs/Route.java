@@ -59,56 +59,40 @@ public class Route {
 
     public String toString(){
         String output = "";
-        if (routeID.isEmpty()){
-            output += ", ";
-        }
-        else {
+        if (!routeID.isEmpty()) {
             output += routeID;
         }
+        output += ",";
 
-        if (agencyID.isEmpty()){
-            output += ", ";
-        }
-        else {
+        if (!agencyID.isEmpty()) {
             output += agencyID;
         }
-        if (routeShortName.isEmpty()){
-            output += ", ";
-        }
-        else {
+        output += ",";
+        if (!routeShortName.isEmpty()) {
             output += routeShortName;
         }
-        if (routeLongName.isEmpty()){
-            output += ", ";
-        }
-        else {
+        output += ",";
+        if (!routeLongName.isEmpty()) {
             output += routeLongName;
         }
-        if (routeDesc.isEmpty()){
-            output += ", ";
-        }
-        else {
+        output += ",";
+        if (!routeDesc.isEmpty()) {
             output += routeDesc;
         }
+        output += ",";
         output += routeDesc;
-        if (routeURL.isEmpty()){
-            output += ", ";
-        }
-        else {
+        if (!routeURL.isEmpty()) {
             output += routeURL;
         }
-        if (routeColor.isEmpty()){
-            output += ", ";
-        }
-        else {
+        output += ",";
+        if (!routeColor.isEmpty()) {
             output += routeColor;
         }
-        if (routeTextColor.isEmpty()){
-            output += ", ";
-        }
-        else {
+        output += ",";
+        if (!routeTextColor.isEmpty()) {
             output += routeTextColor;
         }
+        output += ",";
 
         return output;
 
