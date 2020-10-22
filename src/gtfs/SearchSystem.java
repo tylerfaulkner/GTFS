@@ -54,20 +54,17 @@ public class SearchSystem {
 
     /** Display the number of trips each stop is found on.
      * @param
+     * @return
      */
-    public void getTotalTripOfStop() {
-        ArrayList<String> stops = new ArrayList<>();
-        ArrayList<Integer> count = new ArrayList<>();
-        ArrayList<StopTime> stop = dataGTFS.getAllStopTimes();
-        for (StopTime a: stop){
-            if (!stops.contains(a.getStopID())){
-                stops.add(a.getStopID()+"");
-                count.add(0);
-            }
-            else if (stops.contains(a.getTripID())) {
-                count.set(stops.indexOf(a.getStopID()), count.get(stops.indexOf(a.getStopID()) + 1));
+    public int getTotalTripOfStop(int stop_id) {
+        List<String> tripIDs = new ArrayList<>();
+        List<StopTime> times = dataGTFS.getAllStopTimes();
+        for (StopTime time: times){
+            if(time.getStopID() == stop_id && !tripIDs.contains(time.getTripID())){
+                tripIDs.add(time.getTripID());
             }
         }
+        return tripIDs.size();
     }
 
     /** to be made
@@ -139,6 +136,10 @@ public class SearchSystem {
         return tripsFile;
     }
 
+    public List getStopsList(){
+        return dataGTFS.getAllStops();
+    }
+
     private void setRoutes(File routes) {
         try {
             dataGTFS.setRoutes(routes);
@@ -167,9 +168,9 @@ public class SearchSystem {
 
     private void setStopTime(File stopTime) {
         try {
+            System.out.println("test");
             dataGTFS.setStopTime(stopTime);
-        } catch (NullPointerException e) {
-            missingFiles = true;
+            System.out.println("ytest");
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The " +
 					"route file has either been moved or " +
