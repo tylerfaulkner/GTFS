@@ -228,7 +228,7 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
-        if (searchSystem.getStopFile() != null) {
+        if (searchSystem.getStopFile() != null && searchSystem.getRoutesFile() != null) {
             setStopGridLayout();
         }
 
@@ -250,7 +250,7 @@ public class Controller {
     }
 
     @FXML
-    private void viewStops(){
+    private void viewStops() {
         snapshotPane.setVisible(false);
         snapshotPane.setDisable(true);
         stopsPane.setVisible(true);
@@ -258,7 +258,7 @@ public class Controller {
     }
 
     @FXML
-    private void stopsToHome(){
+    private void stopsToHome() {
         snapshotPane.setVisible(true);
         snapshotPane.setDisable(false);
         stopsPane.setVisible(false);
@@ -278,16 +278,19 @@ public class Controller {
         return file;
     }
 
-    private void setStopGridLayout(){
+    private void setStopGridLayout() {
         List<Stop> stops = searchSystem.getStopsList();
         Iterator iter = stops.iterator();
         int row = 1;
         int idColumn = 0;
-        while (iter.hasNext()){
+        while (iter.hasNext()) {
             Stop stop = (Stop) iter.next();
-            Label label = new Label();
-            label.setText(Integer.toString(stop.getStopID()));
-            stopGrid.addRow(row, label);
+            Label stopID = new Label();
+            stopID.setText(Integer.toString(stop.getStopID()));
+            Label tripCount = new Label();
+            tripCount.setText(Integer.toString(searchSystem.getTotalTripOfStop(stop.getStopID())));
+            stopGrid.addRow(row, stopID);
+            stopGrid.add(tripCount, 1, row);
             row++;
         }
     }

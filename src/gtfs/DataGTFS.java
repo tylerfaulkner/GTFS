@@ -26,6 +26,7 @@ public class DataGTFS {
 	private List<Route> routes;
 	private List<Stop> stops;
 	private List<StopTime> stopTimes;
+
 	private List<Trip> trips;
 
 
@@ -37,7 +38,7 @@ public class DataGTFS {
 	}
 
 	public List<Route> getAllRoutes(){
-		return null;
+		return routes;
 	}
 
 	public List<Stop> getAllStops(){
@@ -45,11 +46,11 @@ public class DataGTFS {
 	}
 
 	public List<StopTime> getAllStopTimes(){
-		return null;
+		return stopTimes;
 	}
 
 	public List<Trip> getAllTrips(){
-		return null;
+		return trips;
 	}
 
 	public int getStopCount(){
@@ -148,7 +149,7 @@ public class DataGTFS {
 
 	}
 
-	private void validateTimesLine(String line){
+	private int validateTimesLine(String line){
 		Scanner in = new Scanner(line).useDelimiter(",");
 		String tripID = in.next();
 		String arrivalTime = in.next();
@@ -160,6 +161,7 @@ public class DataGTFS {
 		}
 		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime, Integer.parseInt(stopID),
 				Integer.parseInt(stopSequence), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
+		return Integer.parseInt(stopID);
 	}
 
 	private void validateStopLine(String line){
