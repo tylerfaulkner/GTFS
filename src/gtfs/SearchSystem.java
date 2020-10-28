@@ -12,7 +12,10 @@ import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,6 +68,53 @@ public class SearchSystem {
             }
         }
         return tripIDs.size();
+    }
+
+    public ArrayList<String> searchRoutesWithStopID(int stopID){
+        List<Trip> trips = dataGTFS.getAllTrips();
+        List<StopTime> stopTimes = dataGTFS.getAllStopTimes();
+        ArrayList<String> tripId = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        for (StopTime r:stopTimes) {
+            if (r.getStopID() == stopID){
+                tripId.add(r.getTripID());
+            }
+        }
+
+        for (Trip r:trips) {
+            if (tripId.contains(r.getTripID())){
+                output.add(r.getTripID());
+            }
+        }
+
+        return output;
+    }
+
+    public ArrayList<String> searchClosestTimeWithStopID(int stopID){
+        long closestTime = 0;
+        List<Trip> trips = dataGTFS.getAllTrips();
+        List<StopTime> stopTimes = dataGTFS.getAllStopTimes();
+        ArrayList<String> tripId = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        Date date = new Date();
+        String time = new stopTimes.get(0).getArrivalTime().toString();
+        for (StopTime r:stopTimes) {
+            if (r.get){
+                tripId.add(r.getTripID());
+            }
+        }
+
+        for (Trip r:trips) {
+            if (tripId.contains(r.getTripID())){
+                output.add(r.getTripID());
+            }
+        }
+
+        return output;
+    }
+
+    public boolean closerTO(long time, long shortest){
+
     }
 
     /** to be made

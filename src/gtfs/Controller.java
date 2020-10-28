@@ -11,6 +11,7 @@ package gtfs;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +36,9 @@ public class Controller {
 
     @FXML
     private Pane snapshotPane;
+
+    @FXML
+    private ListView findByStopId;
 
     @FXML
     private Label stopsFileName;
@@ -319,5 +323,15 @@ public class Controller {
         savePane.setVisible(true);
         currentPane.setVisible(false);
         currentPane = savePane;
+    }
+
+    @FXML
+    private void stopFindRoutes(){
+
+    }
+
+    @FXML
+    private void stopFindClosestStop(){
+
     }
 }
