@@ -33,7 +33,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" text="Find Stops From Routes" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -41,6 +41,11 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Find">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#findStopsForRoute" text="Find With Stop ID" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Pane fx:id="snapshotPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
@@ -58,5 +63,14 @@
             <Button layoutX="14.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#exportStopTimes" prefHeight="43.0" prefWidth="123.0" text="Export Stop Times" />
             <Button layoutX="14.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#exportRoutes" prefHeight="43.0" prefWidth="123.0" text="Export Routes" />
          </children></Pane>
+      <Pane fx:id="findWithStopId" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Stop ID:" />
+            <TextField fx:id="stopId" layoutX="68.0" layoutY="10.0" />
+            <Button layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#stopFindRoutes" text="Find Routes" />
+            <Button layoutX="235.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#stopFindClosestStop" text="Closest Trip" />
+            <ListView fx:id="findByStopId" layoutX="14.0" layoutY="87.0" prefHeight="262.0" prefWidth="568.0" />
+         </children>
+      </Pane>
    </children>
 </Pane>

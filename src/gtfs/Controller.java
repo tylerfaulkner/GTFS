@@ -8,16 +8,19 @@
 package gtfs;
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * controls user input within the gui
@@ -38,7 +41,13 @@ public class Controller {
     private Pane snapshotPane;
 
     @FXML
+    private TextField stopId = new TextField();
+
+    @FXML
     private ListView findByStopId;
+
+    @FXML
+    Pane findWithStopId = new Pane();
 
     @FXML
     private Label stopsFileName;
@@ -327,11 +336,22 @@ public class Controller {
 
     @FXML
     private void stopFindRoutes(){
-
+        ArrayList<String> routeId = searchSystem.searchRoutesWithStopID(Integer.parseInt(stopId.getText()));
+        findByStopId.getItems().clear();
+        findByStopId.getItems().addAll(routeId);
     }
 
     @FXML
     private void stopFindClosestStop(){
+        ArrayList<String> routeId = searchSystem.searchClosestTimeWithStopID(new Integer(stopId.getText()));
+        findByStopId.getItems().clear();
+        findByStopId.getItems().addAll(routeId);
+    }
 
+    @FXML
+    public void findStopsForRoute(ActionEvent actionEvent) {
+        findWithStopId.setVisible(true);
+        currentPane.setVisible(false);
+        currentPane = findWithStopId;
     }
 }

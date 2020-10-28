@@ -97,24 +97,18 @@ public class SearchSystem {
         ArrayList<String> tripId = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         Date date = new Date();
-        String time = new stopTimes.get(0).getArrivalTime().toString();
+//        String time = new stopTimes.get(0).getArrivalTime().toString();
         for (StopTime r:stopTimes) {
-            if (r.get){
-                tripId.add(r.getTripID());
-            }
-        }
-
-        for (Trip r:trips) {
-            if (tripId.contains(r.getTripID())){
-                output.add(r.getTripID());
-            }
+//            if (closerTo()){
+//                closestTime =
+//            }
         }
 
         return output;
     }
 
-    public boolean closerTO(long time, long shortest){
-
+    public boolean closerTo(long time, long shortest){
+        return false;
     }
 
     /** to be made
