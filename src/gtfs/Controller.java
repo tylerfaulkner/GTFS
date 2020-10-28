@@ -29,6 +29,8 @@ import java.util.List;
  */
 public class Controller {
 
+    private boolean stopGridFirstOpen = true;
+
     private boolean vaildAccount;
     private SearchSystem searchSystem;
     private Stage stage;
@@ -254,9 +256,6 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
-        if(searchSystem.getStopFile() != null && searchSystem.getTimesFile() != null) {
-            setStopGrid();
-        }
     }
 
     /**
@@ -365,9 +364,15 @@ public class Controller {
 
     @FXML
     private void stopFindRoutes(){
-        ArrayList<String> routeId = searchSystem.searchRoutesWithStopID(Integer.parseInt(stopId.getText()));
-        findByStopId.getItems().clear();
-        findByStopId.getItems().addAll(routeId);
+        if(searchSystem.getTimesFile() != null && searchSystem.getTripsFile() != null) {
+            ArrayList<String> routeId = searchSystem.searchRoutesWithStopID(Integer.parseInt(stopId.getText()));
+            findByStopId.getItems().clear();
+            findByStopId.getItems().addAll(routeId);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Both a stop_times file and a trips file are needed to find all trips a stop is found on.");
+            alert.setHeaderText("Missing Files");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -380,16 +385,25 @@ public class Controller {
     @FXML
     public void findStopsForRoute(ActionEvent actionEvent) {
         findWithStopId.setVisible(true);
+        findWithStopId.setDisable(false);
         currentPane.setVisible(false);
+        currentPane.setDisable(true);
         currentPane = findWithStopId;
     }
 
     @FXML
     private void viewStops(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Building table of Stops...");
+        if(searchSystem.getStopFile() != null && searchSystem.getTimesFile() != null) {
+            alert.setHeaderText("Building. Please wait.");
+            alert.show();
+            setStopGrid();
+        }
         currentPane.setVisible(false);
         currentPane.setDisable(false);
         stopPane.setVisible(true);
         stopPane.setDisable(false);
         currentPane = stopPane;
+        alert.close();
     }
 }
