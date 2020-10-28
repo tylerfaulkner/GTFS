@@ -10,10 +10,8 @@ package gtfs;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * controls user input within the gui
@@ -39,6 +38,9 @@ public class Controller {
 
     @FXML
     private Pane snapshotPane;
+
+    @FXML
+    private Pane stopPane;
 
     @FXML
     private TextField stopId = new TextField();
@@ -68,6 +70,8 @@ public class Controller {
     private Label routesCount;
     @FXML
     private Pane savePane;
+    @FXML
+    private GridPane stopGrid;
 
     private Pane currentPane = new Pane();
 
@@ -123,10 +127,10 @@ public class Controller {
      * @author Tyler Faulkner
      */
     private void setSnapshot() {
-        tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
-        stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
-        routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
-        timesCount.setText("times count: " + searchSystem.dataGTFS.getTimeCount());
+        tripsCount.setText(Integer.toString(searchSystem.dataGTFS.getTripsCount()));
+        stopCount.setText(Integer.toString(searchSystem.dataGTFS.getStopCount()));
+        routesCount.setText(Integer.toString(searchSystem.dataGTFS.getRoutesCount()));
+        timesCount.setText(Integer.toString(searchSystem.dataGTFS.getTimeCount()));
     }
 
     /**
@@ -139,6 +143,20 @@ public class Controller {
         tripsFileName.setText("");
         stopsFileName.setText("");
         timesFileName.setText("");
+    }
+
+    private void setStopGrid(){
+        List<Stop> stops = searchSystem.getStopsList();
+        int rowNum = 1;
+        for (Stop stop: stops){
+            Label stop_id = new Label();
+            stop_id.setText(Integer.toString(stop.getStopID()));
+            stopGrid.addRow(rowNum, stop_id);
+            Label trips = new Label();
+            trips.setText(Integer.toString(searchSystem.getTotalTripOfStop(stop.getStopID())));
+            stopGrid.add(trips, 1 , rowNum);
+            rowNum++;
+        }
     }
 
     /**
@@ -219,12 +237,12 @@ public class Controller {
      */
     @FXML
     private void openFinish() {
-        snapshotPane.setVisible(true);
         currentPane.setVisible(false);
+        currentPane.setDisable(true);
+        snapshotPane.setVisible(true);
+        snapshotPane.setDisable(false);
         currentPane = snapshotPane;
         uploadFiles();
-
-
     }
 
     /**
@@ -236,7 +254,9 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
-
+        if(searchSystem.getStopFile() != null && searchSystem.getTimesFile() != null) {
+            setStopGrid();
+        }
     }
 
     /**
@@ -252,6 +272,15 @@ public class Controller {
         openPane.setDisable(false);
         openPane.setVisible(true);
         currentPane = openPane;
+    }
+
+    @FXML
+    public void goHome(){
+        currentPane.setVisible(false);
+        currentPane.setDisable(true);
+        snapshotPane.setDisable(false);
+        snapshotPane.setVisible(true);
+        currentPane = snapshotPane;
     }
 
     /**
@@ -353,5 +382,14 @@ public class Controller {
         findWithStopId.setVisible(true);
         currentPane.setVisible(false);
         currentPane = findWithStopId;
+    }
+
+    @FXML
+    private void viewStops(){
+        currentPane.setVisible(false);
+        currentPane.setDisable(false);
+        stopPane.setVisible(true);
+        stopPane.setDisable(false);
+        currentPane = stopPane;
     }
 }

@@ -212,9 +212,7 @@ public class SearchSystem {
 
     private void setStopTime(File stopTime) {
         try {
-            System.out.println("test");
             dataGTFS.setStopTime(stopTime);
-            System.out.println("ytest");
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The " +
 					"route file has either been moved or " +
@@ -258,7 +256,7 @@ public class SearchSystem {
 					"Not all GTFS files were uploaded. " +
                     "Some program functionality may not be available.");
             alert.setHeaderText("Missing Files");
-            alert.show();
+            alert.showAndWait();
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "The upload process has been " +
                 "completed successfully.");
