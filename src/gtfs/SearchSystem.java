@@ -77,6 +77,11 @@ public class SearchSystem {
         return tripIDs.size();
     }
 
+    /**
+     * finds all route ids given a stop id
+     *
+     * @author Andrew Budreck
+     */
     public ArrayList<String> searchRoutesWithStopID(int stopID) {
         List<Trip> trips = dataGTFS.getAllTrips();
         List<StopTime> stopTimes = dataGTFS.getAllStopTimes();
@@ -97,6 +102,11 @@ public class SearchSystem {
         return output;
     }
 
+    /**
+     * finds nearest stops times given a stop ID
+     *
+     * @author Tyler
+     */
     public ArrayList<String> searchClosestTimeWithStopID(int stopID) {
         List<StopTime> stopIdTimes = dataGTFS.getAllTimesOfStopID(stopID);
         ArrayList<String> tripIdsBefore = new ArrayList<>();
@@ -149,10 +159,6 @@ public class SearchSystem {
         tripIds.addAll(tripIdsAfter);
 
         return tripIds;
-    }
-
-    public boolean closerTo(long time, long shortest) {
-        return false;
     }
 
     /**
@@ -238,6 +244,11 @@ public class SearchSystem {
         return dataGTFS.getAllStops();
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setRoutes(File routes) {
         try {
             dataGTFS.setRoutes(routes);
@@ -251,6 +262,11 @@ public class SearchSystem {
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setStops(File stops) {
         try {
             dataGTFS.setStops(stops);
@@ -264,6 +280,11 @@ public class SearchSystem {
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setStopTime(File stopTime) {
         try {
             dataGTFS.setStopTime(stopTime);
@@ -277,6 +298,11 @@ public class SearchSystem {
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setTrips(File trips) {
         try {
             dataGTFS.setTrips(trips);

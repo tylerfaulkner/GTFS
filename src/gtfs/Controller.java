@@ -147,6 +147,12 @@ public class Controller {
         timesFileName.setText("");
     }
 
+
+    /**
+     * sets the labels of file names to be blank
+     *
+     * @author Tyler Faulkner
+     */
     private void setStopGrid(){
         List<Stop> stops = searchSystem.getStopsList();
         int rowNum = 1;
@@ -273,6 +279,11 @@ public class Controller {
         currentPane = openPane;
     }
 
+    /**
+     * takes you home paige
+     *
+     * @author Tyler Faulkner
+     */
     @FXML
     public void goHome(){
         currentPane.setVisible(false);
@@ -295,6 +306,11 @@ public class Controller {
         return file;
     }
 
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportRoutes() {
         try{
@@ -308,7 +324,11 @@ public class Controller {
         }
 
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportStops(){
         try{
@@ -321,7 +341,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportStopTimes(){
         try{
@@ -334,7 +358,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportTrips(){
         try{
@@ -347,7 +375,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     private File getSaveFile() {
         FileChooser output = new FileChooser();
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
@@ -355,6 +387,11 @@ public class Controller {
         return file;
     }
 
+    /**
+     * opens save pane
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void saveFiles(){
         savePane.setVisible(true);
@@ -375,6 +412,11 @@ public class Controller {
         }
     }
 
+    /**
+     * finds the closest stop
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void stopFindClosestStop(){
         ArrayList<String> routeId = searchSystem.searchClosestTimeWithStopID(new Integer(stopId.getText()));
@@ -382,6 +424,11 @@ public class Controller {
         findByStopId.getItems().addAll(routeId);
     }
 
+    /**
+     * Finds stops for routes
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     public void findStopsForRoute(ActionEvent actionEvent) {
         findWithStopId.setVisible(true);
@@ -391,6 +438,11 @@ public class Controller {
         currentPane = findWithStopId;
     }
 
+    /**
+     * displays stops
+     *
+     * @author Tyler
+     */
     @FXML
     private void viewStops(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Building table of Stops...");
