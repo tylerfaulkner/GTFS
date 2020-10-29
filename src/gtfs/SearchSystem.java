@@ -9,11 +9,13 @@ package gtfs;
 
 
 import javafx.scene.control.Alert;
+import org.junit.After;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.sql.Time;
+import java.util.*;
 
 /**
  * used to search the data base for information to display to the user
@@ -31,57 +33,155 @@ public class SearchSystem {
     private File routesFile;
     private File tripsFile;
 
-    /** used to create a new data gtfs object
+    /**
+     * used to create a new data gtfs object
+     *
      * @author Andrew Budreck, Tyler Faulkner
      */
     public SearchSystem() {
         dataGTFS = new DataGTFS();
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param tripId
      */
     public void getAverageSpeed(String tripId) {
 
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param tripId
      */
     public void getDistanceTrip(String tripId) {
 
     }
 
-    /** Display the number of trips each stop is found on.
+    /**
+     * Display the number of trips each stop is found on.
+     *
      * @param
      * @return
      */
     public int getTotalTripOfStop(int stop_id) {
         List<String> tripIDs = new ArrayList<>();
         List<StopTime> times = dataGTFS.getAllStopTimes();
-        for (StopTime time: times){
-            if(time.getStopID() == stop_id && !tripIDs.contains(time.getTripID())){
+        for (StopTime time : times) {
+            if (time.getStopID() == stop_id && !tripIDs.contains(time.getTripID())) {
                 tripIDs.add(time.getTripID());
             }
         }
         return tripIDs.size();
     }
 
-    /** to be made
+    /**
+     * finds all route ids given a stop id
+     *
+     * @author Andrew Budreck
+     */
+    public ArrayList<String> searchRoutesWithStopID(int stopID) {
+        List<Trip> trips = dataGTFS.getAllTrips();
+        List<StopTime> stopTimes = dataGTFS.getAllStopTimes();
+        ArrayList<String> tripId = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        for (StopTime r : stopTimes) {
+            if (r.getStopID() == stopID) {
+                tripId.add(r.getTripID());
+            }
+        }
+
+        for (Trip r : trips) {
+            if (tripId.contains(r.getTripID())) {
+                output.add(r.getTripID());
+            }
+        }
+
+        return output;
+    }
+
+    /**
+     * finds nearest stops times given a stop ID
+     *
+     * @author Tyler
+     */
+    public ArrayList<String> searchClosestTimeWithStopID(int stopID) {
+        List<StopTime> stopIdTimes = dataGTFS.getAllTimesOfStopID(stopID);
+        ArrayList<String> tripIdsBefore = new ArrayList<>();
+        ArrayList<String> tripIdsAfter = new ArrayList<>();
+        Map<String, Time> arrivalTimes = new HashMap<>();
+        for (StopTime times : stopIdTimes){
+            arrivalTimes.put(times.getTripID(), Time.valueOf(times.getArrivalTime()));
+        }
+        Iterator<String> iter = arrivalTimes.keySet().iterator();
+        while (iter.hasNext()){
+            String currentTrip = iter.next();
+            Time currentTime = arrivalTimes.get(currentTrip);
+            String timeString = currentTime.toString();
+            Time time = new Time(new Date().getTime());
+            if (time.compareTo(currentTime) <= 0){
+                int i = 0;
+                boolean found = false;
+                while (i < tripIdsBefore.size() && !found){
+                    String compareTrip = tripIdsBefore.get(i);
+                    Time compareTime = arrivalTimes.get(compareTrip);
+                    if(currentTime.before(compareTime)){
+                        tripIdsBefore.set(i, currentTrip);
+                        found = true;
+                    }
+                    i++;
+                }
+                if(!found){
+                    tripIdsBefore.add(currentTrip);
+                }
+            } else {
+                int i = 0;
+                boolean found = false;
+                while (i < tripIdsAfter.size() && !found){
+                    String compareTrip = tripIdsAfter.get(i);
+                    Time compareTime = arrivalTimes.get(compareTrip);
+                    if(currentTime.before(compareTime)){
+                        tripIdsAfter.set(i, currentTrip);
+                        found = true;
+                    }
+                    i++;
+                }
+                if(!found){
+                    tripIdsAfter.add(currentTrip);
+                }
+            }
+        }
+
+        ArrayList<String> tripIds = new ArrayList<>();
+        tripIds.addAll(tripIdsBefore);
+        tripIds.addAll(tripIdsAfter);
+
+        return tripIds;
+    }
+
+    /**
+     * to be made
+     *
      * @param routeId
      */
     public void plotGPSCoordinates(String routeId) {
 
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param routeID
      */
     public void poltCurrentLoaction(String routeID) {
 
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param id
      * @param type
      */
@@ -89,15 +189,19 @@ public class SearchSystem {
 
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param id
-	 * @return  tbd
+     * @return tbd
      */
     private String setSearchType(String id) {
         return "";
     }
 
-    /** to be made
+    /**
+     * to be made
+     *
      * @param trips
      */
     private void sortTrips(List<Trip> trips) {
@@ -136,10 +240,15 @@ public class SearchSystem {
         return tripsFile;
     }
 
-    public List getStopsList(){
+    public List getStopsList() {
         return dataGTFS.getAllStops();
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setRoutes(File routes) {
         try {
             dataGTFS.setRoutes(routes);
@@ -147,12 +256,17 @@ public class SearchSystem {
             missingFiles = true;
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The" +
-					" route file has either been moved or " +
+                    " route file has either been moved or " +
                     "deleted from your system since being selected.");
             alert.showAndWait();
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setStops(File stops) {
         try {
             dataGTFS.setStops(stops);
@@ -160,61 +274,67 @@ public class SearchSystem {
             missingFiles = true;
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The route" +
-					" file has either been moved or " +
+                    " file has either been moved or " +
                     "deleted from your system since being selected.");
             alert.showAndWait();
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setStopTime(File stopTime) {
         try {
-            System.out.println("test");
             dataGTFS.setStopTime(stopTime);
-            System.out.println("ytest");
+        } catch (NullPointerException e) {
+
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The " +
-					"route file has either been moved or " +
+                    "route file has either been moved or " +
                     "deleted from your system since being selected.");
             alert.showAndWait();
         }
     }
 
+    /**
+     * imports files from user
+     *
+     * @author Tyler
+     */
     private void setTrips(File trips) {
         try {
             dataGTFS.setTrips(trips);
         } catch (NullPointerException e) {
-            missingFiles = true;
+
         } catch (FileNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The" +
-					" route file has either been moved or " +
+                    " route file has either been moved or " +
                     "deleted from your system since being selected.");
             alert.showAndWait();
         }
     }
 
-	/** used for uploading files
-	 * @author Tyler Faulkner
-	 */
+    /**
+     * used for uploading files
+     *
+     * @author Tyler Faulkner
+     */
     public void uploadFiles() {
+        setStops(stopFile);
 
-        if (stopFile != null){
-            setStops(stopFile);
-        }
-        if (timesFile != null) {
-            setStopTime(timesFile);
-        }
-        if (tripsFile != null) {
-            setTrips(tripsFile);
-        }
-        if (routesFile != null) {
-            setRoutes(routesFile);
-        }
-        if (missingFiles) {
+        setStopTime(timesFile);
+
+        setTrips(tripsFile);
+
+        setRoutes(routesFile);
+        if (stopFile == null || timesFile == null || tripsFile == null || routesFile == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,
-					"Not all GTFS files were uploaded. " +
-                    "Some program functionality may not be available.");
+                    "Not all GTFS files were uploaded. " +
+                            "Some program functionality may not be available.");
             alert.setHeaderText("Missing Files");
-            alert.show();
+            alert.showAndWait();
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "The upload process has been " +
                 "completed successfully.");

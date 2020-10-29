@@ -8,15 +8,18 @@
 package gtfs;
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * controls user input within the gui
@@ -25,6 +28,8 @@ import java.io.FileNotFoundException;
  * @version 1.0
  */
 public class Controller {
+
+    private boolean stopGridFirstOpen = true;
 
     private boolean vaildAccount;
     private SearchSystem searchSystem;
@@ -35,6 +40,18 @@ public class Controller {
 
     @FXML
     private Pane snapshotPane;
+
+    @FXML
+    private Pane stopPane;
+
+    @FXML
+    private TextField stopId = new TextField();
+
+    @FXML
+    private ListView findByStopId;
+
+    @FXML
+    Pane findWithStopId = new Pane();
 
     @FXML
     private Label stopsFileName;
@@ -55,6 +72,8 @@ public class Controller {
     private Label routesCount;
     @FXML
     private Pane savePane;
+    @FXML
+    private GridPane stopGrid;
 
     private Pane currentPane = new Pane();
 
@@ -110,10 +129,10 @@ public class Controller {
      * @author Tyler Faulkner
      */
     private void setSnapshot() {
-        tripsCount.setText(("Trip count: " + searchSystem.dataGTFS.getTripsCount()));
-        stopCount.setText("stop count: " + searchSystem.dataGTFS.getStopCount());
-        routesCount.setText("routes count: " + searchSystem.dataGTFS.getRoutesCount());
-        timesCount.setText("times count: " + searchSystem.dataGTFS.getTimeCount());
+        tripsCount.setText(Integer.toString(searchSystem.dataGTFS.getTripsCount()));
+        stopCount.setText(Integer.toString(searchSystem.dataGTFS.getStopCount()));
+        routesCount.setText(Integer.toString(searchSystem.dataGTFS.getRoutesCount()));
+        timesCount.setText(Integer.toString(searchSystem.dataGTFS.getTimeCount()));
     }
 
     /**
@@ -126,6 +145,26 @@ public class Controller {
         tripsFileName.setText("");
         stopsFileName.setText("");
         timesFileName.setText("");
+    }
+
+
+    /**
+     * sets the labels of file names to be blank
+     *
+     * @author Tyler Faulkner
+     */
+    private void setStopGrid(){
+        List<Stop> stops = searchSystem.getStopsList();
+        int rowNum = 1;
+        for (Stop stop: stops){
+            Label stop_id = new Label();
+            stop_id.setText(Integer.toString(stop.getStopID()));
+            stopGrid.addRow(rowNum, stop_id);
+            Label trips = new Label();
+            trips.setText(Integer.toString(searchSystem.getTotalTripOfStop(stop.getStopID())));
+            stopGrid.add(trips, 1 , rowNum);
+            rowNum++;
+        }
     }
 
     /**
@@ -206,12 +245,12 @@ public class Controller {
      */
     @FXML
     private void openFinish() {
-        snapshotPane.setVisible(true);
         currentPane.setVisible(false);
+        currentPane.setDisable(true);
+        snapshotPane.setVisible(true);
+        snapshotPane.setDisable(false);
         currentPane = snapshotPane;
         uploadFiles();
-
-
     }
 
     /**
@@ -223,7 +262,6 @@ public class Controller {
     private void uploadFiles() {
         searchSystem.uploadFiles();
         setSnapshot();
-
     }
 
     /**
@@ -242,6 +280,20 @@ public class Controller {
     }
 
     /**
+     * takes you home paige
+     *
+     * @author Tyler Faulkner
+     */
+    @FXML
+    public void goHome(){
+        currentPane.setVisible(false);
+        currentPane.setDisable(true);
+        snapshotPane.setDisable(false);
+        snapshotPane.setVisible(true);
+        currentPane = snapshotPane;
+    }
+
+    /**
      * props the user with a file opener and get a file from user
      *
      * @return a file chosen from the user
@@ -254,6 +306,11 @@ public class Controller {
         return file;
     }
 
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportRoutes() {
         try{
@@ -267,7 +324,11 @@ public class Controller {
         }
 
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportStops(){
         try{
@@ -280,7 +341,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportStopTimes(){
         try{
@@ -293,7 +358,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void exportTrips(){
         try{
@@ -306,7 +375,11 @@ public class Controller {
             alert.showAndWait();
         }
     }
-
+    /**
+     * sets up to save a new file
+     *
+     * @author Andrew Budreck
+     */
     private File getSaveFile() {
         FileChooser output = new FileChooser();
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
@@ -314,10 +387,75 @@ public class Controller {
         return file;
     }
 
+    /**
+     * opens save pane
+     *
+     * @author Andrew Budreck
+     */
     @FXML
     private void saveFiles(){
         savePane.setVisible(true);
         currentPane.setVisible(false);
         currentPane = savePane;
+    }
+
+    @FXML
+    private void stopFindRoutes(){
+        if(searchSystem.getTimesFile() != null && searchSystem.getTripsFile() != null) {
+            ArrayList<String> routeId = searchSystem.searchRoutesWithStopID(Integer.parseInt(stopId.getText()));
+            findByStopId.getItems().clear();
+            findByStopId.getItems().addAll(routeId);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Both a stop_times file and a trips file are needed to find all trips a stop is found on.");
+            alert.setHeaderText("Missing Files");
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * finds the closest stop
+     *
+     * @author Andrew Budreck
+     */
+    @FXML
+    private void stopFindClosestStop(){
+        ArrayList<String> routeId = searchSystem.searchClosestTimeWithStopID(new Integer(stopId.getText()));
+        findByStopId.getItems().clear();
+        findByStopId.getItems().addAll(routeId);
+    }
+
+    /**
+     * Finds stops for routes
+     *
+     * @author Andrew Budreck
+     */
+    @FXML
+    public void findStopsForRoute(ActionEvent actionEvent) {
+        findWithStopId.setVisible(true);
+        findWithStopId.setDisable(false);
+        currentPane.setVisible(false);
+        currentPane.setDisable(true);
+        currentPane = findWithStopId;
+    }
+
+    /**
+     * displays stops
+     *
+     * @author Tyler
+     */
+    @FXML
+    private void viewStops(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Building table of Stops...");
+        if(searchSystem.getStopFile() != null && searchSystem.getTimesFile() != null) {
+            alert.setHeaderText("Building. Please wait.");
+            alert.show();
+            setStopGrid();
+        }
+        currentPane.setVisible(false);
+        currentPane.setDisable(false);
+        stopPane.setVisible(true);
+        stopPane.setDisable(false);
+        currentPane = stopPane;
+        alert.close();
     }
 }

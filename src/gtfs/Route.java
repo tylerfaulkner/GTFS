@@ -16,6 +16,38 @@ package gtfs;
  */
 public class Route {
 
+    public String getAgencyID() {
+        return agencyID;
+    }
+
+    public String getRouteShortName() {
+        return routeShortName;
+    }
+
+    public String getRouteLongName() {
+        return routeLongName;
+    }
+
+    public String getRouteDesc() {
+        return routeDesc;
+    }
+
+    public int getRouteType() {
+        return routeType;
+    }
+
+    public String getRouteURL() {
+        return routeURL;
+    }
+
+    public String getRouteColor() {
+        return routeColor;
+    }
+
+    public String getRouteTextColor() {
+        return routeTextColor;
+    }
+
     private String routeID;
     private String agencyID;
     private String routeShortName;

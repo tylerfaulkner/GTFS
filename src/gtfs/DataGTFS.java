@@ -71,6 +71,16 @@ public class DataGTFS {
 	public int getRoutesCount(){
 		return routes.size();
 	}
+
+	public List<StopTime> getAllTimesOfStopID (int stop_id){
+		List<StopTime> stopIdTimes = new ArrayList<>();
+		for (StopTime r : stopTimes) {
+			if (r.getStopID() == stop_id){
+				stopIdTimes.add(r);
+			}
+		}
+		return stopIdTimes;
+	}
 	/**
 	 * 
 	 * @param stop_id
@@ -233,12 +243,22 @@ public class DataGTFS {
 		}
 	}
 
+	/**
+	 * used for downloading files
+	 *
+	 * @author Andrew Budreck
+	 */
 	private void validateRouteHeader(String header) throws IllegalArgumentException{
 		if (!header.equals(routeHeader)){
 			throw new IllegalArgumentException("Stop header is invalid");
 		}
 	}
 
+	/**
+	 * used for downloading files
+	 *
+	 * @author Andrew Budreck
+	 */
 	public void exportRoutes(File output) throws FileNotFoundException {
 		String list = "route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color\n";
 		PrintWriter writer = new PrintWriter(output);
@@ -252,6 +272,11 @@ public class DataGTFS {
 
 	}
 
+	/**
+	 * used for downloading files
+	 *
+	 * @author Andrew Budreck
+	 */
 	public void exportStops(File output) throws FileNotFoundException {
 		String list = "stop_id,stop_name,stop_desc,stop_lat,stop_lon\n";
 		PrintWriter writer = new PrintWriter(output);
@@ -264,6 +289,11 @@ public class DataGTFS {
 		writer.close();
 	}
 
+	/**
+	 * used for downloading files
+	 *
+	 * @author Andrew Budreck
+	 */
 	public void exportTrips(File output) throws FileNotFoundException {
 		String list = "route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id\n";
 		PrintWriter writer = new PrintWriter(output);
@@ -276,6 +306,11 @@ public class DataGTFS {
 		writer.close();
 	}
 
+	/**
+	 * used for downloading files
+	 *
+	 * @author Andrew Budreck
+	 */
 	public void exportStopTimes(File output) throws FileNotFoundException {
 		String list = "trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type\n";
 		PrintWriter writer = new PrintWriter(output);
