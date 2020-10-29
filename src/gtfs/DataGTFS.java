@@ -71,6 +71,16 @@ public class DataGTFS {
 	public int getRoutesCount(){
 		return routes.size();
 	}
+
+	public List<StopTime> getAllTimesOfStopID (int stop_id){
+		List<StopTime> stopIdTimes = new ArrayList<>();
+		for (StopTime r : stopTimes) {
+			if (r.getStopID() == stop_id){
+				stopIdTimes.add(r);
+			}
+		}
+		return stopIdTimes;
+	}
 	/**
 	 * 
 	 * @param stop_id

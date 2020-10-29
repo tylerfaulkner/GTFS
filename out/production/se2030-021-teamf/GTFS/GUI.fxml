@@ -28,10 +28,10 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="openStops" layoutX="318.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#openStops" text="Open" />
-            <Button fx:id="openTrips" layoutX="318.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#openTrips" text="Open" />
-            <Button fx:id="openStopTImes" layoutX="318.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#openStopTimes" text="Open" />
-            <Button fx:id="openRoutes" layoutX="318.0" layoutY="293.0" mnemonicParsing="false" onMouseClicked="#openRoutes" text="Open" />
+            <Button fx:id="openStops" layoutX="393.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#openStops" text="Open" />
+            <Button fx:id="openTrips" layoutX="393.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#openTrips" text="Open" />
+            <Button fx:id="openStopTImes" layoutX="393.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#openStopTimes" text="Open" />
+            <Button fx:id="openRoutes" layoutX="393.0" layoutY="293.0" mnemonicParsing="false" onMouseClicked="#openRoutes" text="Open" />
             <Button layoutX="536.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#openFinish" text="Finish" />
             <Label fx:id="stopsFileName" layoutX="225.0" layoutY="105.0" />
             <Label fx:id="tripsFileName" layoutX="229.0" layoutY="162.0" />

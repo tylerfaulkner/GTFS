@@ -9,14 +9,13 @@ package gtfs;
 
 
 import javafx.scene.control.Alert;
+import org.junit.After;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * used to search the data base for information to display to the user
@@ -99,20 +98,57 @@ public class SearchSystem {
     }
 
     public ArrayList<String> searchClosestTimeWithStopID(int stopID) {
-        long closestTime = 0;
-        List<Trip> trips = dataGTFS.getAllTrips();
-        List<StopTime> stopTimes = dataGTFS.getAllStopTimes();
-        ArrayList<String> tripId = new ArrayList<>();
-        ArrayList<String> output = new ArrayList<>();
-        Date date = new Date();
-//        String time = new stopTimes.get(0).getArrivalTime().toString();
-        for (StopTime r : stopTimes) {
-//            if (closerTo()){
-//                closestTime =
-//            }
+        List<StopTime> stopIdTimes = dataGTFS.getAllTimesOfStopID(stopID);
+        ArrayList<String> tripIdsBefore = new ArrayList<>();
+        ArrayList<String> tripIdsAfter = new ArrayList<>();
+        Map<String, Time> arrivalTimes = new HashMap<>();
+        for (StopTime times : stopIdTimes){
+            arrivalTimes.put(times.getTripID(), Time.valueOf(times.getArrivalTime()));
+        }
+        Iterator<String> iter = arrivalTimes.keySet().iterator();
+        while (iter.hasNext()){
+            String currentTrip = iter.next();
+            Time currentTime = arrivalTimes.get(currentTrip);
+            String timeString = currentTime.toString();
+            Time time = new Time(new Date().getTime());
+            if (time.compareTo(currentTime) <= 0){
+                int i = 0;
+                boolean found = false;
+                while (i < tripIdsBefore.size() && !found){
+                    String compareTrip = tripIdsBefore.get(i);
+                    Time compareTime = arrivalTimes.get(compareTrip);
+                    if(currentTime.before(compareTime)){
+                        tripIdsBefore.set(i, currentTrip);
+                        found = true;
+                    }
+                    i++;
+                }
+                if(!found){
+                    tripIdsBefore.add(currentTrip);
+                }
+            } else {
+                int i = 0;
+                boolean found = false;
+                while (i < tripIdsAfter.size() && !found){
+                    String compareTrip = tripIdsAfter.get(i);
+                    Time compareTime = arrivalTimes.get(compareTrip);
+                    if(currentTime.before(compareTime)){
+                        tripIdsAfter.set(i, currentTrip);
+                        found = true;
+                    }
+                    i++;
+                }
+                if(!found){
+                    tripIdsAfter.add(currentTrip);
+                }
+            }
         }
 
-        return output;
+        ArrayList<String> tripIds = new ArrayList<>();
+        tripIds.addAll(tripIdsBefore);
+        tripIds.addAll(tripIdsAfter);
+
+        return tripIds;
     }
 
     public boolean closerTo(long time, long shortest) {
