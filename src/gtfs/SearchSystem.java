@@ -252,6 +252,10 @@ public class SearchSystem {
     private void setRoutes(File routes) {
         try {
             dataGTFS.setRoutes(routes);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "The routes file has been " +
+                    "uploaded successfully.");
+            alert.setHeaderText("Routes File Uploaded");
+            alert.show();
         } catch (NullPointerException e) {
             missingFiles = true;
         } catch (FileNotFoundException e) {
@@ -270,6 +274,10 @@ public class SearchSystem {
     private void setStops(File stops) {
         try {
             dataGTFS.setStops(stops);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "The stops file has been " +
+                    "uploaded successfully.");
+            alert.setHeaderText("Stops File Uploaded");
+            alert.show();
         } catch (NullPointerException e) {
             missingFiles = true;
         } catch (FileNotFoundException e) {
@@ -288,6 +296,10 @@ public class SearchSystem {
     private void setStopTime(File stopTime) {
         try {
             dataGTFS.setStopTime(stopTime);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "The stop times file has been " +
+                    "uploaded successfully.");
+            alert.setHeaderText("Stop Times File Uploaded");
+            alert.show();
         } catch (NullPointerException e) {
 
         } catch (FileNotFoundException e) {
@@ -306,6 +318,10 @@ public class SearchSystem {
     private void setTrips(File trips) {
         try {
             dataGTFS.setTrips(trips);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "The trips file has been " +
+                    "uploaded successfully.");
+            alert.setHeaderText("Trips File Uploaded");
+            alert.show();
         } catch (NullPointerException e) {
 
         } catch (FileNotFoundException e) {
@@ -332,13 +348,12 @@ public class SearchSystem {
         if (stopFile == null || timesFile == null || tripsFile == null || routesFile == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,
                     "Not all GTFS files were uploaded. " +
-                            "Some program functionality may not be available.");
+                            "Some program functionality may not be available.\n" +
+                            "Missing files: " + (stopFile == null ? "\nstops" : "" )
+                            + (timesFile == null ? "\nstop_times" : "") + (tripsFile == null ? "\ntrips" : "")
+                            + (routesFile == null ? "\nroutes" : ""));
             alert.setHeaderText("Missing Files");
             alert.showAndWait();
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "The upload process has been " +
-                "completed successfully.");
-        alert.setHeaderText("Upload Complete");
-        alert.showAndWait();
     }
 }
