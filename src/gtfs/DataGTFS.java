@@ -135,7 +135,8 @@ public class DataGTFS {
 		stops.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		validateStopHeader(read.nextLine());
+		String line = read.nextLine();
+		validateStopHeader(line);
 		while (read.hasNextLine()) {
 			validateStopLine(read.nextLine());
 		}
@@ -172,8 +173,31 @@ public class DataGTFS {
 		if(tripID.equals("") || stopID.equals("") || stopSequence.equals("")){
 			throw new IllegalArgumentException("Stop Times must include trip_id, stop_id, and stop_sequence");
 		}
-		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime, Integer.parseInt(stopID),
-				Integer.parseInt(stopSequence), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
+		String headsign = in.next();
+		String pickup_type_string = in.next();
+		int pickup_type = 0;
+		try{
+			pickup_type = Integer.parseInt(pickup_type_string);
+		} catch (NumberFormatException e){
+
+		}
+		int drop_off_type = 0;
+		try {
+			String drop_off_type_string = in.next();
+			try {
+				drop_off_type = Integer.parseInt(drop_off_type_string);
+			} catch (NullPointerException e) {
+
+			}
+		} catch (NoSuchElementException e){
+
+		}
+		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime,
+				Integer.parseInt(stopID),
+				Integer.parseInt(stopSequence),
+				headsign,
+				pickup_type,
+				drop_off_type));
 		return Integer.parseInt(stopID);
 	}
 
@@ -198,8 +222,26 @@ public class DataGTFS {
 		if(routeID.equals("") || tripID.equals("")){
 			throw new IllegalArgumentException("Trip must have both a route_id and trip_id");
 		}
-		trips.add(new Trip(routeID, serviceID, tripID, in.next(),
-				Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
+		String headsign = in.next();
+		String direction_id_string = in.next();
+		int direction_id = 0;
+		try {
+			direction_id = Integer.parseInt(direction_id_string);
+		} catch (NumberFormatException e){
+
+		}
+		String block_id_string = in.next();
+		int block_id = 0;
+		try {
+			block_id = Integer.parseInt(direction_id_string);
+		} catch (NumberFormatException e){
+
+		}
+		trips.add(new Trip(routeID, serviceID, tripID,
+				headsign,
+				direction_id,
+				block_id,
+				in.next()));
 	}
 
 	private void validateRouteLine(String line){
