@@ -95,7 +95,7 @@ public class SearchSystem {
 
         for (Trip r : trips) {
             if (tripId.contains(r.getTripID())) {
-                output.add(r.getTripID());
+                output.add(r.getRouteID());
             }
         }
 
