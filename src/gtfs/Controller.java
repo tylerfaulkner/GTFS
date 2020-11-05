@@ -446,7 +446,7 @@ public class Controller {
     @FXML
     private void viewStops(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Building table of Stops...");
-        if(searchSystem.getStopFile() != null && searchSystem.getTimesFile() != null) {
+        if(searchSystem.getStopFile() != null) {
             alert.setHeaderText("Building. Please wait.");
             alert.show();
             setStopGrid();
