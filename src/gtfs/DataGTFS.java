@@ -264,7 +264,7 @@ public class DataGTFS {
 		PrintWriter writer = new PrintWriter(output);
 		for (Route r:routes
 			 ) {
-			list += r.toString();
+			list += r.toString() + "\r\n";
 		}
 
 		writer.print(list);
@@ -282,7 +282,7 @@ public class DataGTFS {
 		PrintWriter writer = new PrintWriter(output);
 		for (Stop r:stops
 		) {
-			list += r.toString();
+			list += r.toString() + "\r\n";
 		}
 
 		writer.print(list);
@@ -299,7 +299,7 @@ public class DataGTFS {
 		PrintWriter writer = new PrintWriter(output);
 		for (Trip r:trips
 		) {
-			list += r.toString();
+			list += r.toString() + "\r\n";
 		}
 
 		writer.print(list);
@@ -316,7 +316,7 @@ public class DataGTFS {
 		PrintWriter writer = new PrintWriter(output);
 		for (StopTime r:stopTimes
 		) {
-			list += r.toString() + "\n";
+			list += r.toString() + "\r\n";
 		}
 
 		writer.print(list);
