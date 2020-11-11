@@ -72,6 +72,29 @@ public class DataGTFS {
 		return routes.size();
 	}
 
+	public Stop getStop(int stop_id){
+		Stop stop = null;
+		Iterator iter = stops.iterator();
+		while(iter.hasNext() && stop == null){
+			Stop currentStop = (Stop) iter.next();
+			if(currentStop.getStopID() == stop_id){
+				stop = currentStop;
+			}
+		}
+		return stop;
+	}
+
+	public List<Stop> getAllStopsOnTrip (String trip_id) {
+		List<Stop> stops = new ArrayList<>();
+		for(StopTime r : stopTimes) {
+			Stop stop = getStop(r.getStopID());
+			if (r.getTripID().equals(trip_id) && !stops.contains(stop)){
+				stops.add(stop);
+			}
+		}
+		return stops;
+	}
+
 	public List<StopTime> getAllTimesOfStopID (int stop_id){
 		List<StopTime> stopIdTimes = new ArrayList<>();
 		for (StopTime r : stopTimes) {
@@ -233,7 +256,7 @@ public class DataGTFS {
 		String block_id_string = in.next();
 		int block_id = 0;
 		try {
-			block_id = Integer.parseInt(direction_id_string);
+			block_id = Integer.parseInt(block_id_string);
 		} catch (NumberFormatException e){
 
 		}

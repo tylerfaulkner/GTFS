@@ -56,8 +56,13 @@ public class SearchSystem {
      *
      * @param tripId
      */
-    public void getDistanceTrip(String tripId) {
-
+    public double getDistanceTrip(String tripId) {
+        List<Stop> stops = dataGTFS.getAllStopsOnTrip(tripId);
+        double distance = 0
+        if(stops.size() > 2){
+            int i = 1;
+            while()
+        }
     }
 
     /**
@@ -242,6 +247,10 @@ public class SearchSystem {
 
     public List getStopsList() {
         return dataGTFS.getAllStops();
+    }
+
+    public List getTripsList() {
+        return dataGTFS.getAllTrips();
     }
 
     /**
