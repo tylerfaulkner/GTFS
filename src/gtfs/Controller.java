@@ -45,6 +45,9 @@ public class Controller {
     private Pane stopPane;
 
     @FXML
+    private Pane tripPane;
+
+    @FXML
     private TextField stopId = new TextField();
 
     @FXML
@@ -163,6 +166,20 @@ public class Controller {
             Label trips = new Label();
             trips.setText(Integer.toString(searchSystem.getTotalTripOfStop(stop.getStopID())));
             stopGrid.add(trips, 1 , rowNum);
+            rowNum++;
+        }
+    }
+
+    private void setTripGrid(){
+        List<Trip> trips = searchSystem.getTripsList();
+        int rowNum = 1;
+        for (Trip trip: trips){
+            Label trip_id = new Label();
+            trip_id.setText(trip.getTripID());
+            stopGrid.addRow(rowNum, trip_id);
+            Label distance = new Label();
+            distance.setText(String.format("%s miles", searchSystem.getDistanceTrip(trip.getTripID())));
+            stopGrid.add(distance, 1 , rowNum);
             rowNum++;
         }
     }
@@ -456,6 +473,22 @@ public class Controller {
         stopPane.setVisible(true);
         stopPane.setDisable(false);
         currentPane = stopPane;
+        alert.close();
+    }
+
+    @FXML
+    private void viewTrips(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Building table of Trips...");
+        if(searchSystem.getTripsFile() != null && searchSystem.getTimesFile() != null && searchSystem.getStopFile() != null) {
+            alert.setHeaderText("Building. Please wait.");
+            alert.show();
+            setTripGrid();
+        }
+        currentPane.setVisible(false);
+        currentPane.setDisable(false);
+        tripPane.setVisible(true);
+        tripPane.setDisable(false);
+        currentPane = tripPane;
         alert.close();
     }
 }
