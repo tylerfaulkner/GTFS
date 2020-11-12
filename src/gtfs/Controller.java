@@ -206,7 +206,6 @@ public class Controller {
         List<Trip> trips = searchSystem.getTripsList();
         int rowNum = 1;
         for (Trip trip : trips) {
-            System.out.println(rowNum);
             Label trip_id = new Label();
             trip_id.setText(trip.getTripID());
             tripsGrid.addRow(rowNum, trip_id);
@@ -453,6 +452,11 @@ public class Controller {
         currentPane = savePane;
     }
 
+    /**
+     * Found routes based on the given stop_id
+     *
+     * @author: Andrew Budreck
+     */
     @FXML
     private void stopFindRoutes() {
         if (searchSystem.getTimesFile() != null && searchSystem.getTripsFile() != null) {
@@ -535,7 +539,9 @@ public class Controller {
     @FXML
     public void editData() {
         editPane.setVisible(true);
+        editPane.setDisable(false);
         currentPane.setVisible(false);
+        currentPane.setDisable(true);
         currentPane = editPane;
     }
 

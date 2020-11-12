@@ -89,6 +89,13 @@ public class SearchSystem {
         return distance;
     }
 
+    /**
+     * calaculates distance between two stops
+     * @param firstStop
+     * @param secondStop
+     * @return distance
+     * @author: Tyler Faulkner
+     */
     private double calculateDistanceBetweenStops(Stop firstStop, Stop secondStop){
         double lat1 = Double.parseDouble(firstStop.getLat());
         double lon1 = Double.parseDouble(firstStop.getLong());
