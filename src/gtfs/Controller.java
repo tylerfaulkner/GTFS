@@ -1,20 +1,4 @@
 /*
-Copyright 2020 MSOE
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-/*
  * Course: SE2030 - 021
  * Fall 2020
  * Lab 5 - Classes And Git
@@ -524,7 +508,6 @@ public class Controller {
     @FXML
     public void editData(){
         editPane.setVisible(true);
-        editPane.setDisable(false);
         currentPane.setVisible(false);
         currentPane = editPane;
     }
@@ -534,7 +517,7 @@ public class Controller {
         editChoices.getItems().clear();
         editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllRoutes());
-        editType = 1;
+        editType = 0;
     }
 
     @FXML
@@ -542,7 +525,7 @@ public class Controller {
         editChoices.getItems().clear();
         editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllStops());
-        editType = 0;
+        editType = 1;
     }
 
 
@@ -564,7 +547,7 @@ public class Controller {
 
     @FXML
     public void editValues(){
-        System.out.println("test");
+
        int editValue = editView.getEditingIndex();
        if (editType == 0){
            editChoices.getItems().add("stop_id,stop_name,stop_desc,stop_lat,stop_lon");

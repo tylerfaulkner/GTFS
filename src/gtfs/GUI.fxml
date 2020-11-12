@@ -102,7 +102,7 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane fx:id="editPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
+      <Pane fx:id="editPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0">
          <children>
             <ListView fx:id="editView" onMouseClicked="#editValues" prefHeight="374.0" prefWidth="334.0" />
             <Button layoutX="494.0" mnemonicParsing="false" onMouseClicked="#getStops" prefHeight="36.0" prefWidth="106.0" text="Get Stops" />
