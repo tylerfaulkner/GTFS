@@ -99,8 +99,12 @@ public class Controller {
     private Pane savePane;
     @FXML
     private GridPane stopGrid;
+    @FXML
+    private GridPane tripsGrid;
 
     private Pane currentPane = new Pane();
+
+
 
     /**
      * runs code to create new search system object
@@ -196,12 +200,17 @@ public class Controller {
         List<Trip> trips = searchSystem.getTripsList();
         int rowNum = 1;
         for (Trip trip: trips){
+            System.out.println(rowNum);
             Label trip_id = new Label();
             trip_id.setText(trip.getTripID());
-            stopGrid.addRow(rowNum, trip_id);
+            tripsGrid.addRow(rowNum, trip_id);
             Label distance = new Label();
-            distance.setText(String.format("%s miles", searchSystem.getDistanceTrip(trip.getTripID())));
-            stopGrid.add(distance, 1 , rowNum);
+            try {
+                distance.setText(String.format("%.2f miles", searchSystem.getDistanceTrip(trip.getTripID())));
+            }catch (NullPointerException e){
+
+            }
+            tripsGrid.add(distance, 1 , rowNum);
             rowNum++;
         }
     }

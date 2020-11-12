@@ -48,12 +48,15 @@ public class DataGTFS {
 
 	private List<Trip> trips;
 
+	private HashMap<String, List> stopsOnTripID;
+
 
 	public DataGTFS(){
 		routes = new ArrayList<Route>();
 		stops = new ArrayList<Stop>();
 		stopTimes = new ArrayList<StopTime>();
 		trips = new ArrayList<Trip>();
+		stopsOnTripID = new HashMap<>();
 	}
 
 	public List<Route> getAllRoutes(){
@@ -100,15 +103,33 @@ public class DataGTFS {
 		return stop;
 	}
 
-	public List<Stop> getAllStopsOnTrip (String trip_id) {
+
+	public void generateStopOnTrip(){
 		List<Stop> stops = new ArrayList<>();
-		for(StopTime r : stopTimes) {
+		Iterator iter = stopTimes.iterator();
+		String currentID = "";
+		while(iter.hasNext()) {
+			StopTime r = (StopTime) iter.next();
+			System.out.println(r.getTripID());
+			if(currentID.equals("")){
+				currentID = r.getTripID();
+				System.out.println("one time");
+			}
+			if (!currentID.equals(r.getTripID())){
+				System.out.println(stops);
+				stopsOnTripID.put(currentID, stops);
+				stops = new ArrayList<>();
+				currentID = r.getTripID();
+			}
 			Stop stop = getStop(r.getStopID());
-			if (r.getTripID().equals(trip_id) && !stops.contains(stop)){
+			if (!stops.contains(stop)){
 				stops.add(stop);
 			}
 		}
-		return stops;
+	}
+
+	public List<Stop> getAllStopsOnTrip (String trip_id) {
+		return stopsOnTripID.get(trip_id);
 	}
 
 	public List<StopTime> getAllTimesOfStopID (int stop_id){
@@ -320,7 +341,7 @@ public class DataGTFS {
 
 	private void validateTimeHeader(String header) throws IllegalArgumentException{
 		if (!header.equals(timesHeader)){
-			throw new IllegalArgumentException("Stop header is invalid");
+			throw new IllegalArgumentException("Stop Time header is invalid");
 		}
 	}
 
