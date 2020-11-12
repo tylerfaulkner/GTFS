@@ -25,6 +25,8 @@ import java.util.*;
  */
 public class SearchSystem {
 
+    private static final double RADIUS_EARTH = 3958.8;  //miles
+
     private boolean missingFiles = false;
 
     public DataGTFS dataGTFS;
@@ -56,8 +58,35 @@ public class SearchSystem {
      *
      * @param tripId
      */
-    public void getDistanceTrip(String tripId) {
+    public double getDistanceTrip(String tripId) {
+        List<Stop> stops = dataGTFS.getAllStopsOnTrip(tripId);
+        double distance = 0;
+        if(stops.size() > 1){
+            Iterator iter =  stops.iterator();
+            Stop previousStop = (Stop) iter.next();
+            Stop currentStop = null;
+            while(iter.hasNext()){
+                currentStop = (Stop) iter.next();
+                distance += calculateDistanceBetweenStops(previousStop, currentStop);
+            }
+        }
+        return distance;
+    }
 
+    private double calculateDistanceBetweenStops(Stop firstStop, Stop secondStop){
+        double lat1 = Double.parseDouble(firstStop.getLat());
+        double lon1 = Double.parseDouble(firstStop.getLong());
+        double lat2 = Double.parseDouble(secondStop.getLat());
+        double lon2 = Double.parseDouble(secondStop.getLong());
+        double dLat = degToRad(lat2-lat1);
+        double dLon = degToRad(lon2-lon1);
+        double h = Math.pow(Math.sin(dLat/2), 2) +
+                (Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.pow(Math.sin(dLon/2), 2));
+        return 2 * RADIUS_EARTH * Math.asin(Math.sqrt(h));
+    }
+
+    private double degToRad(double deg){
+        return deg * (Math.PI/180);
     }
 
     /**
@@ -244,6 +273,10 @@ public class SearchSystem {
         return dataGTFS.getAllStops();
     }
 
+    public List getTripsList() {
+        return dataGTFS.getAllTrips();
+    }
+
     /**
      * imports files from user
      *
@@ -345,6 +378,9 @@ public class SearchSystem {
         setTrips(tripsFile);
 
         setRoutes(routesFile);
+        if(stopFile != null && timesFile != null && tripsFile != null) {
+            dataGTFS.generateStopOnTrip();
+        }
         if (stopFile == null || timesFile == null || tripsFile == null || routesFile == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,
                     "Not all GTFS files were uploaded. " +
