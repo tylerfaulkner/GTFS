@@ -62,7 +62,6 @@ public class SearchSystem {
         List<Stop> stops = dataGTFS.getAllStopsOnTrip(tripId);
         double distance = 0;
         if(stops.size() > 1){
-            int i = 1;
             Iterator iter =  stops.iterator();
             Stop previousStop = (Stop) iter.next();
             Stop currentStop = null;
@@ -379,6 +378,9 @@ public class SearchSystem {
         setTrips(tripsFile);
 
         setRoutes(routesFile);
+        if(stopFile != null && timesFile != null && tripsFile != null) {
+            dataGTFS.generateStopOnTrip();
+        }
         if (stopFile == null || timesFile == null || tripsFile == null || routesFile == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,
                     "Not all GTFS files were uploaded. " +
