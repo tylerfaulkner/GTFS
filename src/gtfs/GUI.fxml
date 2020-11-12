@@ -43,7 +43,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" onAction="#editData" text="Edit Data" />
               </items>
             </Menu>
         </menus>

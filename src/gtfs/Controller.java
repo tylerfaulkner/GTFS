@@ -36,6 +36,9 @@ public class Controller {
     private Stage stage;
 
     @FXML
+    private Pane editPane;
+
+    @FXML
     private Pane openPane;
 
     @FXML
@@ -46,6 +49,9 @@ public class Controller {
 
     @FXML
     private Pane tripPane;
+
+    @FXML
+    private ListView editView;
 
     @FXML
     private TextField stopId = new TextField();
@@ -491,4 +497,33 @@ public class Controller {
         currentPane = tripPane;
         alert.close();
     }
+
+    @FXML
+    public void editData(){
+        editPane.setVisible(true);
+        currentPane.setVisible(false);
+        currentPane = editPane;
+    }
+
+    @FXML
+    public void getRoutes(){
+        editView.getItems().addAll(searchSystem.dataGTFS.getAllRoutes());
+    }
+
+    @FXML
+    public void getStops(){
+        editView.getItems().addAll(searchSystem.dataGTFS.getAllStops());
+    }
+
+
+    @FXML
+    public void getTrips(){
+        editView.getItems().addAll(searchSystem.dataGTFS.getAllTrips());
+    }
+
+    @FXML
+    public void getStopTimes(){
+        editView.getItems().addAll(searchSystem.dataGTFS.getAllTrips());
+    }
+
 }
