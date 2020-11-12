@@ -517,7 +517,7 @@ public class Controller {
     @FXML
     public void editData(){
         editPane.setVisible(true);
-        editPane.setDisable(true);
+        editPane.setDisable(false);
         currentPane.setVisible(false);
         currentPane = editPane;
     }
