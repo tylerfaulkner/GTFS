@@ -8,6 +8,8 @@
 package gtfs;
 
 
+import java.util.ArrayList;
+
 /**
  * on objected used to save route info and get stop info
  *
@@ -84,7 +86,64 @@ public class Route {
         this.routeColor = routeColor;
         this.routeTextColor = routeTextColor;
     }
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
+    public ArrayList<String> getData(){
+        ArrayList<String> data = new ArrayList<>();
+        data.add(routeID + "");
+        data.add(agencyID);
+        data.add(routeShortName);
+        data.add(routeLongName);
+        data.add(routeDesc);
+        data.add(routeType + "");
+        data.add(routeURL);
+        data.add(routeColor);
+        data.add(routeTextColor);
 
+        return data;
+
+    }
+
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
+    public void edit(String valueOf, String newValue)
+    {
+        if(routeID.equals(valueOf)){
+            routeID = newValue;
+        }
+        else if(agencyID.equals(valueOf)){
+            agencyID = newValue;
+        }
+        else if(routeShortName.equals(valueOf)){
+            routeShortName = newValue;
+        }
+        else if(routeDesc.equals(valueOf)){
+            routeDesc = newValue;
+        }
+        else if ((routeType + "").equals(valueOf)){
+            routeType = Integer.parseInt(newValue);
+        }
+        else if (routeURL.equals(valueOf)){
+            routeURL = newValue;
+        }
+        else if (routeColor.equals(valueOf)){
+            routeColor = newValue;
+
+        }
+        else if (routeColor.equals(valueOf)){
+
+        }
+        else if (routeTextColor.equals(valueOf)){
+
+        }
+
+    }
     public String getRouteID() {
         return routeID;
     }

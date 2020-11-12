@@ -32,12 +32,15 @@ public class DataGTFS {
 
 	private List<Trip> trips;
 
+	private HashMap<String, List> stopsOnTripID;
+
 
 	public DataGTFS(){
 		routes = new ArrayList<Route>();
 		stops = new ArrayList<Stop>();
 		stopTimes = new ArrayList<StopTime>();
 		trips = new ArrayList<Trip>();
+		stopsOnTripID = new HashMap<>();
 	}
 
 	public List<Route> getAllRoutes(){
@@ -70,6 +73,47 @@ public class DataGTFS {
 
 	public int getRoutesCount(){
 		return routes.size();
+	}
+
+	public Stop getStop(int stop_id){
+		Stop stop = null;
+		Iterator iter = stops.iterator();
+		while(iter.hasNext() && stop == null){
+			Stop currentStop = (Stop) iter.next();
+			if(currentStop.getStopID() == stop_id){
+				stop = currentStop;
+			}
+		}
+		return stop;
+	}
+
+
+	public void generateStopOnTrip(){
+		List<Stop> stops = new ArrayList<>();
+		Iterator iter = stopTimes.iterator();
+		String currentID = "";
+		while(iter.hasNext()) {
+			StopTime r = (StopTime) iter.next();
+			System.out.println(r.getTripID());
+			if(currentID.equals("")){
+				currentID = r.getTripID();
+				System.out.println("one time");
+			}
+			if (!currentID.equals(r.getTripID())){
+				System.out.println(stops);
+				stopsOnTripID.put(currentID, stops);
+				stops = new ArrayList<>();
+				currentID = r.getTripID();
+			}
+			Stop stop = getStop(r.getStopID());
+			if (!stops.contains(stop)){
+				stops.add(stop);
+			}
+		}
+	}
+
+	public List<Stop> getAllStopsOnTrip (String trip_id) {
+		return stopsOnTripID.get(trip_id);
 	}
 
 	public List<StopTime> getAllTimesOfStopID (int stop_id){
@@ -135,7 +179,8 @@ public class DataGTFS {
 		stops.clear();
 		FileInputStream fileInputStream = new FileInputStream(stopFile);
 		Scanner read = new Scanner(fileInputStream).useDelimiter(",");
-		validateStopHeader(read.nextLine());
+		String line = read.nextLine();
+		validateStopHeader(line);
 		while (read.hasNextLine()) {
 			validateStopLine(read.nextLine());
 		}
@@ -172,8 +217,31 @@ public class DataGTFS {
 		if(tripID.equals("") || stopID.equals("") || stopSequence.equals("")){
 			throw new IllegalArgumentException("Stop Times must include trip_id, stop_id, and stop_sequence");
 		}
-		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime, Integer.parseInt(stopID),
-				Integer.parseInt(stopSequence), in.next(), Integer.parseInt(in.next()), Integer.parseInt(in.next())));
+		String headsign = in.next();
+		String pickup_type_string = in.next();
+		int pickup_type = 0;
+		try{
+			pickup_type = Integer.parseInt(pickup_type_string);
+		} catch (NumberFormatException e){
+
+		}
+		int drop_off_type = 0;
+		try {
+			String drop_off_type_string = in.next();
+			try {
+				drop_off_type = Integer.parseInt(drop_off_type_string);
+			} catch (NullPointerException e) {
+
+			}
+		} catch (NoSuchElementException e){
+
+		}
+		stopTimes.add(new StopTime(tripID, arrivalTime, departureTime,
+				Integer.parseInt(stopID),
+				Integer.parseInt(stopSequence),
+				headsign,
+				pickup_type,
+				drop_off_type));
 		return Integer.parseInt(stopID);
 	}
 
@@ -198,8 +266,26 @@ public class DataGTFS {
 		if(routeID.equals("") || tripID.equals("")){
 			throw new IllegalArgumentException("Trip must have both a route_id and trip_id");
 		}
-		trips.add(new Trip(routeID, serviceID, tripID, in.next(),
-				Integer.parseInt(in.next()), Integer.parseInt(in.next()), in.next()));
+		String headsign = in.next();
+		String direction_id_string = in.next();
+		int direction_id = 0;
+		try {
+			direction_id = Integer.parseInt(direction_id_string);
+		} catch (NumberFormatException e){
+
+		}
+		String block_id_string = in.next();
+		int block_id = 0;
+		try {
+			block_id = Integer.parseInt(block_id_string);
+		} catch (NumberFormatException e){
+
+		}
+		trips.add(new Trip(routeID, serviceID, tripID,
+				headsign,
+				direction_id,
+				block_id,
+				in.next()));
 	}
 
 	private void validateRouteLine(String line){
@@ -239,7 +325,7 @@ public class DataGTFS {
 
 	private void validateTimeHeader(String header) throws IllegalArgumentException{
 		if (!header.equals(timesHeader)){
-			throw new IllegalArgumentException("Stop header is invalid");
+			throw new IllegalArgumentException("Stop Time header is invalid");
 		}
 	}
 
@@ -324,5 +410,23 @@ public class DataGTFS {
 
 
 	}
+
+	public Stop getStopValue(int i){
+		return stops.get(i);
+	}
+
+	public StopTime getStopTimeValue(int i){
+		return stopTimes.get(i);
+	}
+
+	public Trip getTripValue(int i){
+		return trips.get(i);
+	}
+
+	public Route getRouteValue(int i){
+		return routes.get(i);
+	}
+
+
 
 }

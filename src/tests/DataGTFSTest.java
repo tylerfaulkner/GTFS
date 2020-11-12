@@ -1,5 +1,6 @@
-package gtfs;
+package tests;
 
+import gtfs.DataGTFS;
 import org.junit.Assert;
 
 import java.io.File;

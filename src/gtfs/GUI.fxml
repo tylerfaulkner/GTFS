@@ -41,6 +41,11 @@
                 <MenuItem mnemonicParsing="false" onAction="#findStopsForRoute" text="Find With Stop ID" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#editData" text="Edit Data" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Pane fx:id="snapshotPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" visible="false">
@@ -97,5 +102,17 @@
             </ScrollPane>
          </children>
       </Pane>
+      <Pane fx:id="editPane" layoutY="26.0" prefHeight="374.0" prefWidth="600.0">
+         <children>
+            <ListView fx:id="editView" onMouseClicked="#editValues" prefHeight="374.0" prefWidth="334.0" />
+            <Button layoutX="494.0" mnemonicParsing="false" onMouseClicked="#getStops" prefHeight="36.0" prefWidth="106.0" text="Get Stops" />
+            <Button layoutX="494.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#getRoutes" prefHeight="36.0" prefWidth="106.0" text="Get Routs" />
+            <Button layoutX="494.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#getTrips" prefHeight="36.0" prefWidth="106.0" text="Get Trips" />
+            <Button layoutX="494.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#getStopTimes" prefHeight="36.0" prefWidth="106.0" text="Get Stop Times" />
+            <Button layoutX="356.0" layoutY="111.0" mnemonicParsing="false" onKeyPressed="#finishEdit" onMouseClicked="#finishEdit" prefHeight="36.0" prefWidth="106.0" text="Finish Edit" />
+            <ChoiceBox fx:id="editChoices" layoutX="334.0" layoutY="6.0" prefWidth="150.0" />
+            <Label layoutX="334.0" layoutY="36.0" text="New Value:" />
+            <TextField fx:id="editInput" layoutX="335.0" layoutY="63.0" prefHeight="25.0" prefWidth="149.0" />
+         </children></Pane>
    </children>
 </Pane>
