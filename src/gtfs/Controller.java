@@ -36,7 +36,13 @@ public class Controller {
     private Stage stage;
 
     @FXML
+    private TextField editInput;
+
+    @FXML
     private Pane editPane;
+
+    @FXML
+    private ChoiceBox editChoices;
 
     @FXML
     private Pane openPane;
@@ -84,6 +90,7 @@ public class Controller {
     @FXML
     private GridPane stopGrid;
 
+    private int editType;
     private Pane currentPane = new Pane();
 
     /**
@@ -507,23 +514,69 @@ public class Controller {
 
     @FXML
     public void getRoutes(){
+        editChoices.getItems().clear();
+        editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllRoutes());
+        editType = 1;
     }
 
     @FXML
     public void getStops(){
+        editChoices.getItems().clear();
+        editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllStops());
+        editType = 0;
     }
 
 
     @FXML
     public void getTrips(){
+        editChoices.getItems().clear();
+        editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllTrips());
+        editType = 2;
     }
 
     @FXML
     public void getStopTimes(){
+        editChoices.getItems().clear();
+        editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllTrips());
+        editType = 3;
+    }
+
+    @FXML
+    public void editValues(){
+        System.out.println("test");
+       int editValue = editView.getEditingIndex();
+       if (editType == 0){
+           editChoices.getItems().add("stop_id,stop_name,stop_desc,stop_lat,stop_lon");
+           editChoices.getItems().addAll(searchSystem.dataGTFS.getStop(editValue).getData());
+       }
+
+    }
+
+    @FXML
+    public void finishEdit(){
+        Alert alert;
+        int editValue = editView.getEditingIndex();
+        String editOf = editChoices.getSelectionModel().getSelectedItem().toString();
+        Stop stop = searchSystem.dataGTFS.getStopValue(editValue);
+
+        if (editType == 0){
+            searchSystem.dataGTFS.getStopValue(editValue).edit(editOf, editInput.getText());
+        }
+        else if (editType == 1){
+
+        }
+        else if (editType == 2){
+
+        }
+        else if (editType == 3){
+
+        }
+
+
     }
 
 }

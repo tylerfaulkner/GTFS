@@ -8,6 +8,8 @@
 package gtfs;
 
 
+import java.util.ArrayList;
+
 /**
  * <b><u>-trip_id : string</u></b>
  * <b><u>-stop_id : string</u></b>
@@ -23,6 +25,27 @@ package gtfs;
 public class Stop {
 
     private int stopId;
+
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
+    }
+
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
+    }
+
+    public void setStopDesc(String stopDesc) {
+        this.stopDesc = stopDesc;
+    }
+
+    public void setStopLat(String stopLat) {
+        this.stopLat = stopLat;
+    }
+
+    public void setStopLong(String stopLong) {
+        this.stopLong = stopLong;
+    }
+
     private String stopName;
     private String stopDesc;
     private String stopLat;
@@ -74,6 +97,37 @@ public class Stop {
         }
         output += ",";
         return output;
+    }
+
+
+    public ArrayList<String> getData(){
+        ArrayList<String> data = new ArrayList<>();
+        data.add(stopId + "");
+        data.add(stopName);
+        data.add(stopDesc);
+        data.add(stopLat);
+        data.add(stopLong);
+
+        return data;
+
+    }
+
+    public void edit(String valueOf, String newValue){
+        if ((stopId +"").equals(valueOf)){
+            stopId = Integer.parseInt(valueOf);
+        }
+        else if (valueOf.equals(stopName)){
+            stopName = newValue;
+        }
+        else if (valueOf.equals(stopDesc)){
+            stopDesc = newValue;
+        }
+        else if(valueOf.equals(stopLat)){
+            stopLat = newValue;
+        }
+        else if (valueOf.equals(stopLong)){
+            stopLong = newValue;
+        }
     }
 
 }

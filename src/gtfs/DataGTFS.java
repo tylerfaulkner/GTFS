@@ -390,4 +390,22 @@ public class DataGTFS {
 
 	}
 
+	public Stop getStopValue(int i){
+		return stops.get(i);
+	}
+
+	public StopTime getStopTimeValue(int i){
+		return stopTimes.get(i);
+	}
+
+	public Trip getTripValue(int i){
+		return trips.get(i);
+	}
+
+	public Route getRouteValue(int i){
+		return routes.get(i);
+	}
+
+
+
 }
