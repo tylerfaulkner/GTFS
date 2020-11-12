@@ -72,6 +72,11 @@ public class StopTime {
         this.dropOffType = dropOffType;
     }
 
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public void edit(String valueOf, String newValue)
     {
         if(tripID.equals(valueOf)){
@@ -102,6 +107,12 @@ public class StopTime {
         }
 
     }
+
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public ArrayList<String> getData(){
         ArrayList<String> data = new ArrayList<>();
         data.add(tripID);

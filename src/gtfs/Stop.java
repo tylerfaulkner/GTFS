@@ -99,7 +99,11 @@ public class Stop {
         return output;
     }
 
-
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public ArrayList<String> getData(){
         ArrayList<String> data = new ArrayList<>();
         data.add(stopId + "");
@@ -111,7 +115,11 @@ public class Stop {
         return data;
 
     }
-
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public void edit(String valueOf, String newValue){
         if ((stopId +"").equals(valueOf)){
             stopId = Integer.parseInt(valueOf);

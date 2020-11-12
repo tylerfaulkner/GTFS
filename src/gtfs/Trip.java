@@ -63,6 +63,12 @@ public class Trip {
         this.blockID = blockID;
         this.shapeID = shapeID;
     }
+
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public void edit(String valueOf, String newValue)
     {
         if(tripID.equals(valueOf)){
@@ -93,6 +99,11 @@ public class Trip {
         }
 
     }
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
 
     public ArrayList<String> getData(){
         ArrayList<String> data = new ArrayList<>();

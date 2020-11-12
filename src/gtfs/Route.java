@@ -86,6 +86,11 @@ public class Route {
         this.routeColor = routeColor;
         this.routeTextColor = routeTextColor;
     }
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public ArrayList<String> getData(){
         ArrayList<String> data = new ArrayList<>();
         data.add(routeID + "");
@@ -101,6 +106,12 @@ public class Route {
         return data;
 
     }
+
+    /**
+     *
+     *
+     * @author Andrew Budreck
+     */
     public void edit(String valueOf, String newValue)
     {
         if(routeID.equals(valueOf)){
