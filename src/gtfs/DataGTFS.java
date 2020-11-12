@@ -94,13 +94,10 @@ public class DataGTFS {
 		String currentID = "";
 		while(iter.hasNext()) {
 			StopTime r = (StopTime) iter.next();
-			System.out.println(r.getTripID());
 			if(currentID.equals("")){
 				currentID = r.getTripID();
-				System.out.println("one time");
 			}
 			if (!currentID.equals(r.getTripID())){
-				System.out.println(stops);
 				stopsOnTripID.put(currentID, stops);
 				stops = new ArrayList<>();
 				currentID = r.getTripID();

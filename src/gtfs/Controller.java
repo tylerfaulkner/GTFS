@@ -190,7 +190,6 @@ public class Controller {
         List<Trip> trips = searchSystem.getTripsList();
         int rowNum = 1;
         for (Trip trip : trips) {
-            System.out.println(rowNum);
             Label trip_id = new Label();
             trip_id.setText(trip.getTripID());
             tripsGrid.addRow(rowNum, trip_id);
