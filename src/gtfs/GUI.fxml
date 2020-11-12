@@ -109,7 +109,7 @@
             <Button layoutX="494.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#getRoutes" prefHeight="36.0" prefWidth="106.0" text="Get Routs" />
             <Button layoutX="494.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#getTrips" prefHeight="36.0" prefWidth="106.0" text="Get Trips" />
             <Button layoutX="494.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#getStopTimes" prefHeight="36.0" prefWidth="106.0" text="Get Stop Times" />
-            <Button layoutX="356.0" layoutY="111.0" mnemonicParsing="false" onKeyPressed="#finishEdit" prefHeight="36.0" prefWidth="106.0" text="FInish Edit" />
+            <Button layoutX="356.0" layoutY="111.0" mnemonicParsing="false" onKeyPressed="#finishEdit" onMouseClicked="#finishEdit" prefHeight="36.0" prefWidth="106.0" text="Finish Edit" />
             <ChoiceBox fx:id="editChoices" layoutX="334.0" layoutY="6.0" prefWidth="150.0" />
             <Label layoutX="334.0" layoutY="36.0" text="New Value:" />
             <TextField fx:id="editInput" layoutX="335.0" layoutY="63.0" prefHeight="25.0" prefWidth="149.0" />

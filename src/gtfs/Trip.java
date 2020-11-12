@@ -8,6 +8,8 @@
 package gtfs;
 
 
+import java.util.ArrayList;
+
 /** used to store trip information for the data gtfs
  * @author Andrew Budreck, Tyler Faulkner
  *
@@ -61,7 +63,51 @@ public class Trip {
         this.blockID = blockID;
         this.shapeID = shapeID;
     }
+    public void edit(String valueOf, String newValue)
+    {
+        if(tripID.equals(valueOf)){
+            tripID = newValue;
+        }
+        else if(routeID.equals(valueOf)){
+            routeID = newValue;
+        }
+        else if(serviceID.equals(valueOf)){
+            serviceID = newValue;
+        }
+        else if((tripID).equals(valueOf)){
+            tripID = newValue;
+        }
+        else if (tripHeadSign.equals(valueOf)){
+            tripHeadSign = newValue;
+        }
+        else if (("" + directionID).equals(valueOf)){
+            directionID = Integer.parseInt(newValue);
+        }
+        else if (("" + blockID).equals(valueOf)){
+            blockID = Integer.parseInt(newValue);
 
+        }
+        else if (shapeID.equals(valueOf)){
+            shapeID = newValue;
+
+        }
+
+    }
+
+    public ArrayList<String> getData(){
+        ArrayList<String> data = new ArrayList<>();
+        data.add(routeID);
+        data.add(serviceID);
+        data.add(tripID);
+        data.add(tripHeadSign);
+        data.add(directionID + "");
+        data.add(blockID + "");
+        data.add(shapeID);
+
+
+        return data;
+
+    }
     public String getRouteID() {
         return routeID;
     }

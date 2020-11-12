@@ -526,7 +526,7 @@ public class Controller {
         editChoices.getItems().clear();
         editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllRoutes());
-        editType = 0;
+        editType = 1;
     }
 
     @FXML
@@ -534,7 +534,7 @@ public class Controller {
         editChoices.getItems().clear();
         editView.getItems().clear();
         editView.getItems().addAll(searchSystem.dataGTFS.getAllStops());
-        editType = 1;
+        editType = 0;
     }
 
 
@@ -557,32 +557,43 @@ public class Controller {
     @FXML
     public void editValues(){
 
-       int editValue = editView.getEditingIndex();
+        editChoices.getItems().clear();
+       int editValue = editView.getSelectionModel().getSelectedIndex();
        if (editType == 0){
            editChoices.getItems().add("stop_id,stop_name,stop_desc,stop_lat,stop_lon");
-           editChoices.getItems().addAll(searchSystem.dataGTFS.getStop(editValue).getData());
+           editChoices.getItems().addAll(searchSystem.dataGTFS.getStopValue(editValue).getData());
+       }
+       else if (editType == 1){
+           editChoices.getItems().add("route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color");
+           editChoices.getItems().addAll(searchSystem.dataGTFS.getRouteValue(editValue).getData());
+       }
+       else if (editType == 2){
+           editChoices.getItems().add("route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id");
+           editChoices.getItems().addAll(searchSystem.dataGTFS.getTripValue(editValue).getData());
+       }
+       else if (editValue == 3){
+           editChoices.getItems().add("trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type");
+           editChoices.getItems().addAll(searchSystem.dataGTFS.getStopTimeValue(editValue).getData());
        }
 
     }
 
     @FXML
     public void finishEdit(){
-        Alert alert;
-        int editValue = editView.getEditingIndex();
+        int editValue = editView.getSelectionModel().getSelectedIndex();
         String editOf = editChoices.getSelectionModel().getSelectedItem().toString();
-        Stop stop = searchSystem.dataGTFS.getStopValue(editValue);
 
         if (editType == 0){
             searchSystem.dataGTFS.getStopValue(editValue).edit(editOf, editInput.getText());
         }
         else if (editType == 1){
-
+            searchSystem.dataGTFS.getRouteValue(editValue).edit(editOf, editInput.getText());
         }
         else if (editType == 2){
-
+            searchSystem.dataGTFS.getTripValue(editValue).edit(editOf, editInput.getText());
         }
         else if (editType == 3){
-
+            searchSystem.dataGTFS.getStopTimeValue(editValue).edit(editOf, editInput.getText());
         }
 
 

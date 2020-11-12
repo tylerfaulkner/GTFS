@@ -8,6 +8,8 @@
 package gtfs;
 
 
+import java.util.ArrayList;
+
 /**
  * used to store stop time information
  *
@@ -70,6 +72,50 @@ public class StopTime {
         this.dropOffType = dropOffType;
     }
 
+    public void edit(String valueOf, String newValue)
+    {
+        if(tripID.equals(valueOf)){
+            tripID = newValue;
+        }
+        else if(arrivalTime.equals(valueOf)){
+            arrivalTime = newValue;
+        }
+        else if(departureTime.equals(valueOf)){
+            departureTime = newValue;
+        }
+        else if((""+ stopID).equals(valueOf)){
+            stopID = Integer.parseInt(newValue);
+        }
+        else if ((stopSequence + "").equals(valueOf)){
+            stopSequence = Integer.parseInt(newValue);
+        }
+        else if (stopHeadsign.equals(valueOf)){
+            stopHeadsign = newValue;
+        }
+        else if (("" + pickUpType).equals(valueOf)){
+            pickUpType = Integer.parseInt(newValue);
+
+        }
+        else if (("" + dropOffType).equals(valueOf)){
+            dropOffType = Integer.parseInt(newValue);
+
+        }
+
+    }
+    public ArrayList<String> getData(){
+        ArrayList<String> data = new ArrayList<>();
+        data.add(tripID);
+        data.add(arrivalTime);
+        data.add(departureTime);
+        data.add(stopID + "");
+        data.add(stopSequence + "");
+        data.add(stopHeadsign);
+        data.add(pickUpType + "");
+        data.add(dropOffType + "");
+
+        return data;
+
+    }
     public int getStopID() {
         return stopID;
     }
